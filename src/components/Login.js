@@ -1,32 +1,38 @@
-import React, { useState } from "react"
-import styled from "styled-components"
-import { useNavigate } from "react-router-dom"
-import { auth, googleProvider } from "../firebase"
-import { signInWithPopup, signInWithEmailAndPassword } from "firebase/auth"
+// src/components/Login.js
+import React, { useState } from "react";
+import styled from "styled-components";
+import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { auth, googleProvider } from "../firebase";
+import { signInWithPopup, signInWithEmailAndPassword } from "firebase/auth";
+import { setUser } from "../store/authSlice";
 
 const Login = () => {
-  const navigate = useNavigate()
-  const [email, setEmail] = useState("")
-  const [password, setPassword] = useState("")
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
 
   const handleGoogleLogin = async () => {
     try {
-      await signInWithPopup(auth, googleProvider)
-      navigate("/manage-students") // Redirect to a protected route after successful login
+      const result = await signInWithPopup(auth, googleProvider);
+      dispatch(setUser(result.user));
+      navigate("/manage-students");
     } catch (error) {
-      console.error("Google login error:", error)
+      console.error("Google login error:", error);
     }
-  }
+  };
 
   const handleEmailLogin = async (event) => {
-    event.preventDefault()
+    event.preventDefault();
     try {
-      await signInWithEmailAndPassword(auth, email, password)
-      navigate("/manage-students") // Redirect to a protected route after successful login
+      const result = await signInWithEmailAndPassword(auth, email, password);
+      dispatch(setUser(result.user));
+      navigate("/manage-students");
     } catch (error) {
-      console.error("Email login error:", error)
+      console.error("Email login error:", error);
     }
-  }
+  };
 
   return (
     <Container>
@@ -48,16 +54,13 @@ const Login = () => {
         />
         <Button type="submit">Login</Button>
         <Separator>or</Separator>
-
-        <GoogleButton onClick={handleGoogleLogin}>
-          Login with Google
-        </GoogleButton>
+        <GoogleButton onClick={handleGoogleLogin}>Login with Google</GoogleButton>
       </Form>
     </Container>
-  )
-}
+  );
+};
 
-export default Login
+export default Login;
 
 const Container = styled.div`
   background-color: #fff;
@@ -67,28 +70,27 @@ const Container = styled.div`
   width: 50%;
   margin: 5rem auto;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-
   font-family: Arial, sans-serif;
-`
+`;
 
 const Header = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
   margin-bottom: 20px;
-`
+`;
 
 const Title = styled.h1`
   color: #000;
   font-size: 24px;
   margin: 0;
-`
+`;
 
 const Form = styled.form`
   display: flex;
   flex-direction: column;
   align-items: center;
-`
+`;
 
 const GoogleButton = styled.button`
   width: 100%;
@@ -104,13 +106,13 @@ const GoogleButton = styled.button`
   &:hover {
     background-color: #357ae8;
   }
-`
+`;
 
 const Separator = styled.div`
   margin: 20px 0;
   font-size: 14px;
   color: #999;
-`
+`;
 
 const Input = styled.input`
   width: 100%;
@@ -119,7 +121,7 @@ const Input = styled.input`
   border: 1px solid #ddd;
   border-radius: 4px;
   font-size: 14px;
-`
+`;
 
 const Button = styled.button`
   width: 100%;
@@ -134,4 +136,4 @@ const Button = styled.button`
   &:hover {
     background-color: #d32f2f;
   }
-`
+`;

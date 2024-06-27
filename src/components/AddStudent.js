@@ -1,107 +1,136 @@
-import React from 'react';
-import styled from 'styled-components';
+// src/components/AddStudent.js
+import React, { useState } from "react"
+import styled from "styled-components"
+import { useDispatch } from "react-redux"
+import { addStudent } from "../store/studentSlice"
 
 const AddStudent = () => {
+  const dispatch = useDispatch()
+  const [student, setStudent] = useState({
+    name: "",
+    age: "",
+    gender: "",
+    course: "",
+  })
+
+  const handleChange = (e) => {
+    const { name, value } = e.target
+    setStudent({ ...student, [name]: value })
+  }
+
+  const handleSubmit = (e) => {
+    e.preventDefault()
+    dispatch(addStudent(student))
+    setStudent({ name: "", age: "", gender: "", course: "" })
+  }
+
   return (
     <Container>
       <Header>
         <Title>Add Student</Title>
-        <DateTime>25 Jul 2022 16:10</DateTime>
       </Header>
-      <Form>
-        <FormRow>
-          <Input type="text" placeholder="First Name" />
-          <Input type="text" placeholder="Middle Name" />
-          <Input type="text" placeholder="Last Name" />
-        </FormRow>
-        <FormRow>
-          <Select>
-            <option>Select Class</option>
-          </Select>
-          <Select>
-            <option>Select Division</option>
-          </Select>
-          <Input type="text" placeholder="Enter Roll Number in Digits" />
-        </FormRow>
-        <FormRow>
-          <Input type="text" placeholder="Address Line 1" />
-          <Input type="text" placeholder="Address Line 2" />
-        </FormRow>
-        <FormRow>
-          <Input type="text" placeholder="Landmark" />
-          <Input type="text" placeholder="City" />
-          <Input type="text" placeholder="Pincode" />
-        </FormRow>
-        <Button>Add Student</Button>
+      <Form onSubmit={handleSubmit}>
+        <Input
+          type="text"
+          name="name"
+          placeholder="Name"
+          value={student.name}
+          onChange={handleChange}
+          required
+        />
+        <Input
+          type="number"
+          name="age"
+          placeholder="Age"
+          value={student.age}
+          onChange={handleChange}
+          required
+        />
+        <Select
+          name="gender"
+          value={student.gender}
+          onChange={handleChange}
+          required
+        >
+          <option value="">Select Gender</option>
+          <option value="male">Male</option>
+          <option value="female">Female</option>
+          <option value="other">Other</option>
+        </Select>
+        <Input
+          type="text"
+          name="course"
+          placeholder="Course"
+          value={student.course}
+          onChange={handleChange}
+          required
+        />
+        <Button type="submit">Add Student</Button>
       </Form>
     </Container>
-  );
-};
+  )
+}
 
-export default AddStudent;
+export default AddStudent
 
 const Container = styled.div`
   background-color: #fff;
   padding: 40px;
   border-radius: 8px;
   margin: 20px;
+  width: 50%;
+  margin: 0 auto;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  font-family: Arial, sans-serif;
-`;
+`
 
 const Header = styled.div`
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
   margin-bottom: 20px;
-`;
+`
 
 const Title = styled.h1`
   color: #000;
   font-size: 24px;
   margin: 0;
-`;
-
-const DateTime = styled.div`
-  color: #666;
-  font-size: 14px;
-`;
+`
 
 const Form = styled.form`
-  background-color: #fff;
-`;
-
-const FormRow = styled.div`
   display: flex;
-  margin-bottom: 15px;
-  gap: 10px;
-`;
+  flex-direction: column;
+  align-items: center;
+`
 
 const Input = styled.input`
-  flex: 1;
+  width: 100%;
   padding: 10px;
+  margin-bottom: 15px;
   border: 1px solid #ddd;
   border-radius: 4px;
   font-size: 14px;
-`;
+`
 
 const Select = styled.select`
-  flex: 1;
+  width: 100%;
   padding: 10px;
+  margin-bottom: 15px;
   border: 1px solid #ddd;
   border-radius: 4px;
   font-size: 14px;
-`;
+`
 
 const Button = styled.button`
+  width: 100%;
   padding: 15px 20px;
-  background-color: #ff3b3f;
+  background-color: #e53935;
   color: #fff;
   border: none;
   border-radius: 4px;
   cursor: pointer;
-  width: 100%;
-  text-align: center;
-  margin-top: 20px;
   font-size: 16px;
-`;
+
+  &:hover {
+    background-color: #d32f2f;
+  }
+`

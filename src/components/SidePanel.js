@@ -1,3 +1,4 @@
+// src/components/SidePanel.js
 import React, { useState } from "react"
 import { Link, useLocation, useNavigate } from "react-router-dom"
 import styled from "styled-components"
@@ -53,8 +54,8 @@ export default SidePanel
 
 const Sidebar = styled.div`
   width: 280px;
-  height: 100vh; /* Full screen height */
-  background-color: #fff; /* Light grey background */
+  height: 100vh;
+  background-color: #fff;
   padding: 20px;
   display: flex;
   flex-direction: column;
@@ -66,7 +67,7 @@ const CompanyName = styled.div`
   font-size: 24px;
   font-weight: bold;
   margin-bottom: 20px;
-  color: #e53935; /* Red color for company name */
+  color: #e53935;
 `
 
 const Menu = styled.div`
@@ -94,5 +95,5 @@ const StyledLink = styled(Link)`
   text-decoration: none;
   color: ${(props) => (props.primary ? "#fff" : "#000")};
   font-size: 16px;
-  font-weight: ${(props) => (props.primary ? "bold" : "normal")};
+  font-weight: bold;
 `

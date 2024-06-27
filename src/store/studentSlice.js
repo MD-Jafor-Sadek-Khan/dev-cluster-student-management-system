@@ -8,15 +8,11 @@ const studentSlice = createSlice({
     addStudent: (state, action) => {
       state.push(action.payload);
     },
-    updateStudent: (state, action) => {
-      const index = state.findIndex(student => student.id === action.payload.id);
-      state[index] = action.payload;
-    },
-    deleteStudent: (state, action) => {
-      return state.filter(student => student.id !== action.payload);
+    removeStudent: (state, action) => {
+      state.splice(action.payload, 1);
     },
   },
 });
 
-export const { addStudent, updateStudent, deleteStudent } = studentSlice.actions;
+export const { addStudent, removeStudent } = studentSlice.actions;
 export default studentSlice.reducer;
