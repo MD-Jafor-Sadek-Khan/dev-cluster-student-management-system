@@ -1,7 +1,7 @@
 import React, { useState } from "react"
 import { Link, useLocation, useNavigate } from "react-router-dom"
 import styled from "styled-components"
-import { FaUserPlus, FaUsers, FaSignOutAlt } from "react-icons/fa"
+import { LuUsers, LuLayoutList, LuLogOut } from "react-icons/lu"
 
 const SidePanel = () => {
   const location = useLocation()
@@ -21,7 +21,7 @@ const SidePanel = () => {
           primary={selected === "/add-student"}
           onClick={() => setSelected("/add-student")}
         >
-          <FaUserPlus />
+          <LuUsers />
           <StyledLink primary={selected === "/add-student"} to="/add-student">
             Add Student
           </StyledLink>
@@ -30,7 +30,7 @@ const SidePanel = () => {
           primary={selected === "/manage-students"}
           onClick={() => setSelected("/manage-students")}
         >
-          <FaUsers />
+          <LuLayoutList />
           <StyledLink
             primary={selected === "/manage-students"}
             to="/manage-students"
@@ -39,7 +39,7 @@ const SidePanel = () => {
           </StyledLink>
         </MenuItem>
         <MenuItem primary={selected === "/logout"} onClick={handleLogout}>
-          <FaSignOutAlt />
+          <LuLogOut />
           <StyledLink primary={selected === "/logout"} to="#">
             Logout
           </StyledLink>
@@ -83,18 +83,19 @@ const MenuItem = styled.div`
   padding: 20px 30px;
   display: flex;
   align-items: center;
-  background-color: ${(props) => (props.primary ? "#f33823" : "transparent")};
+  background-color: ${(props) => (props.primary ? "#f33823" : "#fffcfb")};
   border-radius: 5px;
   cursor: pointer;
   svg {
     margin-right: 10px;
-    color: ${(props) => (props.primary ? "#fff" : "#000")};
+    height: 24px;
+    width: 24px;
+    color: ${(props) => (props.primary ? "#fff" : "rgba(0,0,0,0.6)")};
   }
 `
 
 const StyledLink = styled(Link)`
   text-decoration: none;
-  color: ${(props) => (props.primary ? "#fff" : "#000")};
+  color: ${(props) => (props.primary ? "#fff" : "rgba(0,0,0,0.6)")};
   font-size: 16px;
-  font-weight: bold;
 `

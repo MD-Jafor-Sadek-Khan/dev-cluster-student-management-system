@@ -7,7 +7,7 @@ import {
   AiOutlineSearch,
 } from "react-icons/ai"
 
-import { db } from "../firebase"  
+import { db } from "../firebase"
 import { collection, getDocs, deleteDoc, doc, setDoc } from "firebase/firestore"
 import Modal from "react-modal"
 import { saveAs } from "file-saver"
@@ -18,6 +18,8 @@ const ManageStudents = () => {
   const [isViewModalOpen, setIsViewModalOpen] = useState(false)
   const [isEditModalOpen, setIsEditModalOpen] = useState(false)
   const [selectedStudent, setSelectedStudent] = useState(null)
+  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false)
+  const [deleteStudentId, setDeleteStudentId] = useState(null)
 
   useEffect(() => {
     const fetchStudents = async () => {
@@ -33,9 +35,35 @@ const ManageStudents = () => {
     fetchStudents()
   }, [])
 
-  const handleDelete = async (id) => {
-    await deleteDoc(doc(db, "students", id))
-    setStudents(students.filter((student) => student.id !== id))
+  // const handleDelete = async (id) => {
+  //   await deleteDoc(doc(db, "students", id))
+  //   setStudents(students.filter((student) => student.id !== id))
+  // }
+  // const handleDelete = async (id) => {
+  //   const confirmDelete = window.confirm(
+  //     "Are you sure you want to delete this item?"
+  //   )
+  //   if (confirmDelete) {
+  //     await deleteDoc(doc(db, "students", id))
+  //     setStudents(students.filter((student) => student.id !== id))
+  //   }
+  // }
+
+  const handleDelete = (id) => {
+    setDeleteStudentId(id)
+    setIsDeleteModalOpen(true)
+  }
+
+  const confirmDelete = async () => {
+    await deleteDoc(doc(db, "students", deleteStudentId))
+    setStudents(students.filter((student) => student.id !== deleteStudentId))
+    setIsDeleteModalOpen(false)
+    setDeleteStudentId(null)
+  }
+
+  const closeDeleteModal = () => {
+    setIsDeleteModalOpen(false)
+    setDeleteStudentId(null)
   }
 
   const handleSearch = (e) => {
@@ -353,6 +381,27 @@ const ManageStudents = () => {
           </ModalContent>
         )}
       </Modal>
+
+      <Modal
+        isOpen={isDeleteModalOpen}
+        onRequestClose={closeDeleteModal}
+        style={ModalStyle}
+        contentLabel="Delete Confirmation"
+      >
+        <ModalHeader>
+          <h2>Delete Confirmation</h2>
+          <button onClick={closeDeleteModal}>&times;</button>
+        </ModalHeader>
+        <ModalContent>
+          <p>Are you sure you want to delete this item?</p>
+          <ButtonWrapper>
+            <ModalButtonForDelete onClick={confirmDelete}>
+              Delete
+            </ModalButtonForDelete>
+            <CancelButton onClick={closeDeleteModal}>Cancel</CancelButton>
+          </ButtonWrapper>
+        </ModalContent>
+      </Modal>
     </Container>
   )
 }
@@ -550,7 +599,7 @@ const ModalHeader = styled.div`
   }
 `
 
-const ModalContent = styled.form`
+const ModalContent = styled.div`
   margin-top: 20px;
 
   p {
@@ -562,6 +611,11 @@ const ModalContent = styled.form`
       color: #ff3b3f;
     }
   }
+`
+const ButtonWrapper = styled.div`
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
 `
 
 const FormRow = styled.div`
@@ -600,6 +654,19 @@ const ModalButton = styled.button`
 
   &:hover {
     background-color: #e22e31;
+  }
+`
+
+const ModalButtonForDelete = styled(ModalButton)`
+  width: unset;
+`
+
+const CancelButton = styled(ModalButton)`
+  background-color: #ddd;
+  color: #333;
+  width: unset;
+  &:hover {
+    background-color: #ccc;
   }
 `
 
