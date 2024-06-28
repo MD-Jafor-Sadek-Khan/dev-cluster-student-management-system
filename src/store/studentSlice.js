@@ -1,4 +1,3 @@
-// src/store/studentSlice.js
 import { createSlice } from '@reduxjs/toolkit';
 
 const studentSlice = createSlice({

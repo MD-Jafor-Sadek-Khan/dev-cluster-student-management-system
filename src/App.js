@@ -1,9 +1,7 @@
-// src/App.js
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Navbar from './components/Navbar';
 import SidePanel from './components/SidePanel';
-import Content from './components/Content';
 import AddStudent from './components/AddStudent';
 import ManageStudents from './components/ManageStudents';
 import Login from './components/Login';

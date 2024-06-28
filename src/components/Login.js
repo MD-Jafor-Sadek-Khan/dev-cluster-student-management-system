@@ -1,4 +1,3 @@
-// src/components/Login.js
 import React, { useState } from "react";
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
@@ -63,7 +62,7 @@ const Login = () => {
 export default Login;
 
 const Container = styled.div`
-  background-color: #fff;
+  background-color: #fffcfb;
   padding: 40px;
   border-radius: 8px;
   margin: 20px;
@@ -95,7 +94,7 @@ const Form = styled.form`
 const GoogleButton = styled.button`
   width: 100%;
   padding: 15px 20px;
-  background-color: #4285f4;
+  background-color: #1255c4;
   color: white;
   border: none;
   border-radius: 4px;
@@ -126,7 +125,7 @@ const Input = styled.input`
 const Button = styled.button`
   width: 100%;
   padding: 15px 20px;
-  background-color: #e53935;
+  background-color: #f33823;
   color: #fff;
   border: none;
   border-radius: 4px;

@@ -1,5 +1,4 @@
-// src/styles/GlobalStyle.js
-import { createGlobalStyle } from 'styled-components';
+import { createGlobalStyle } from "styled-components"
 
 const GlobalStyle = createGlobalStyle`
   * {
@@ -10,8 +9,8 @@ const GlobalStyle = createGlobalStyle`
 
   body {
     font-family: Arial, sans-serif;
-    background-color: #f4f4f4;
+    background-color: #FFFCFB;
   }
-`;
+`
 
-export default GlobalStyle;
+export default GlobalStyle

@@ -1,16 +1,15 @@
-// src/components/Content.js
-import React from 'react';
-import styled from 'styled-components';
+import React from "react"
+import styled from "styled-components"
 
 const Content = ({ children }) => {
-  return <ContentWrapper>{children}</ContentWrapper>;
-};
+  return <ContentWrapper>{children}</ContentWrapper>
+}
 
-export default Content;
+export default Content
 
 const ContentWrapper = styled.div`
   flex-grow: 1;
-  background-color: #fff;
+  background-color: #fffcfb;
   padding: 20px;
   overflow-y: auto;
-`;
+`
