@@ -4,7 +4,7 @@ import Navbar from './components/Navbar';
 import SidePanel from './components/SidePanel';
 import AddStudent from './components/AddStudent';
 import ManageStudents from './components/ManageStudents/ManageStudents';
-import Login from './components/Login';
+import Login from './components/Login/Login';
 import GlobalStyle from './styles/GlobalStyle';
 import styled from 'styled-components';
 import { Toaster } from 'react-hot-toast';
