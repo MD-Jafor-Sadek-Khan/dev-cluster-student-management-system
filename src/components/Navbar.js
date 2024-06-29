@@ -1,14 +1,18 @@
-// src/components/Navbar.js
 import React from "react"
 import styled from "styled-components"
-import { FaUser } from "react-icons/fa" // Assuming you're using FontAwesome icons
+
+import { useSelector } from "react-redux"
+
+import { LuUser } from "react-icons/lu"
 
 const Navbar = () => {
+  const user = useSelector((state) => state.auth.user)
+
   return (
     <Nav>
       <UserInfo>
         <UserIcon />
-        <Username>username@resoluteai.in</Username>
+        <Username>{user ? user.email : "Guest"}</Username>
       </UserInfo>
     </Nav>
   )
@@ -17,29 +21,32 @@ const Navbar = () => {
 export default Navbar
 
 const Nav = styled.nav`
+  margin-top: 1.1rem;
   height: 70px;
   display: flex;
   justify-content: flex-end;
   align-items: center;
-  background-color: #fff;
-  padding: 0 20px;
+  background-color: #fffcfb;
 `
 
 const UserInfo = styled.div`
   display: flex;
   align-items: center;
-  border: 1px solid #eee;
-  padding: 15px 40px;
-  margin-top:15px;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 15px 48px;
+  background: #fffcfb;
   margin-right: 8rem;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  box-shadow: 0px 0px 3px 0px #00000033;
+
   border-radius: 5px;
 `
 
-const UserIcon = styled(FaUser)`
+const UserIcon = styled(LuUser)`
   font-size: 16px;
   margin-right: 10px;
-  color: #000;
+  width: 24px;
+  height: 24px;
 `
 
 const Username = styled.div`
