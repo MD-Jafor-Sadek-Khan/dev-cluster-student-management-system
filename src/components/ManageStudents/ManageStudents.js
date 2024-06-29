@@ -238,14 +238,26 @@ const Container = styled.div`
   background-color: #fffcfb;
   border-radius: 8px;
   margin-top: 1.3rem;
+  @media (max-width: 768px) {
+    padding: 0.5rem;
+  }
 `
 
 const Header = styled.div`
   display: flex;
   justify-content: space-between;
+  flex-wrap: wrap;
   padding: 0 1.93rem;
   align-items: center;
   margin-bottom: 32px;
+  @media (max-width: 768px) {
+    padding: 0 1rem;
+  }
+  @media (max-width: 480px) {
+    flex-direction: column;
+    align-items: flex-start;
+    margin-bottom: 1rem;
+  }
 `
 
 const Title = styled.h1`
@@ -257,6 +269,12 @@ const Title = styled.h1`
 const SearchWrapper = styled.div`
   position: relative;
   display: inline-block;
+  margin-right: 1rem;
+  @media (max-width: 480px) {
+    width: 100%;
+    margin-right: 0;
+    margin-bottom: 0.5rem;
+  }
 `
 
 const SearchInput = styled.input`
@@ -271,6 +289,12 @@ const SearchInput = styled.input`
     font-size: 13px;
     color: #b5b8bf;
   }
+  @media (max-width: 768px) {
+    width: 200px;
+  }
+  @media (max-width: 480px) {
+    width: 100%;
+  }
 `
 
 const SearchIcon = styled(AiOutlineSearch)`
@@ -281,6 +305,7 @@ const SearchIcon = styled(AiOutlineSearch)`
   color: #637381;
   font-size: 0.8rem;
 `
+
 const ActionButton = styled.button`
   padding: 16px 35.5px;
   background-color: #f8f9fb;
@@ -289,9 +314,21 @@ const ActionButton = styled.button`
   border-radius: 10px;
   cursor: pointer;
   font-size: 13px;
+  margin-right: 1rem;
 
   &:hover {
     box-shadow: 0px 4px 4px 0px #00000040;
+  }
+
+  @media (max-width: 768px) {
+    padding: 10px 20px;
+    margin-right: 0.5rem;
+  }
+
+  @media (max-width: 480px) {
+    width: 100%;
+    margin-right: 0;
+    margin-bottom: 0.5rem;
   }
 `
 
@@ -347,6 +384,31 @@ const Table = styled.table`
     align-items: center;
     justify-content: flex-end;
   }
+
+  @media (max-width: 768px) {
+    th,
+    td {
+      padding: 0.5rem 1rem;
+    }
+  }
+
+  @media (max-width: 480px) {
+    th,
+    td {
+      padding: 0.25rem 0.5rem;
+    }
+    th,
+    td {
+      display: block;
+      text-align: right;
+    }
+    th {
+      text-align: left;
+    }
+    td:last-child {
+      justify-content: center;
+    }
+  }
 `
 
 const IconWrapper = styled.span`
@@ -382,6 +444,15 @@ const IconWrapper = styled.span`
 const Timestamp = styled.div`
   color: #000;
   font-size: 14px;
+  @media (max-width: 480px) {
+    margin-top: 0.5rem;
+    width: 100%;
+    text-align: left;
+  }
 `
 
+
 Modal.setAppElement("#root")
+
+
+// original

@@ -1,8 +1,7 @@
-// DeleteStudentModal.js
-
-import React from 'react';
-import styled from 'styled-components';
-import Modal from 'react-modal';
+import React from "react"
+import styled from "styled-components"
+import Modal from "react-modal"
+import { FaTimes } from "react-icons/fa"
 
 const DeleteStudentModal = ({ isOpen, onRequestClose, confirmDelete }) => {
   return (
@@ -13,113 +12,114 @@ const DeleteStudentModal = ({ isOpen, onRequestClose, confirmDelete }) => {
       contentLabel="Delete Confirmation"
     >
       <ModalHeader>
-        <h2>Delete Confirmation</h2>
-        <button onClick={onRequestClose}>&times;</button>
+        <Title>Delete Confirmation</Title>
+        <CloseButton onClick={onRequestClose}>
+          <FaTimes />
+        </CloseButton>
       </ModalHeader>
       <ModalContent>
-        <p>Are you sure you want to delete this item?</p>
+        <Message>Are you sure you want to delete this item?</Message>
         <ButtonWrapper>
-          <ModalButtonForDelete onClick={confirmDelete}>
-            Delete
-          </ModalButtonForDelete>
+          <DeleteButton onClick={confirmDelete}>Delete</DeleteButton>
           <CancelButton onClick={onRequestClose}>Cancel</CancelButton>
         </ButtonWrapper>
       </ModalContent>
     </Modal>
-  );
-};
+  )
+}
 
-export default DeleteStudentModal;
+export default DeleteStudentModal
 
 const ModalStyle = {
   content: {
-    top: '50%',
-    left: '50%',
-    right: 'auto',
-    bottom: 'auto',
-    marginRight: '-50%',
-    transform: 'translate(-50%, -50%)',
-    width: '50%',
-    padding: '20px',
-    borderRadius: '8px',
-    boxShadow: '0 0 10px rgba(0, 0, 0, 0.1)',
+    top: "50%",
+    left: "50%",
+    right: "auto",
+    bottom: "auto",
+    marginRight: "-50%",
+    transform: "translate(-50%, -50%)",
+    width: "40%",
+    padding: "30px",
+    borderRadius: "12px",
+    boxShadow: "0 0 20px rgba(0, 0, 0, 0.2)",
+    backgroundColor: "#fff",
   },
-};
+}
 
 const ModalHeader = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  border-bottom: 1px solid #ddd;
-  padding-bottom: 10px;
+//   border-bottom: 2px solid #f33823;
+//   padding-bottom: 15px;
+`
 
-  h2 {
-    margin: 0;
-    font-size: 18px;
-    color: #ff3b3f;
+const Title = styled.h2`
+  margin: 0;
+  font-size: 22px;
+  color: #ff3b3f;
+`
+
+const CloseButton = styled.button`
+  background: none;
+  border: none;
+  font-size: 24px;
+  cursor: pointer;
+  color: #e63946;
+  transition: color 0.3s ease;
+
+  &:hover {
+    color: #d00000;
   }
 
-  button {
-    background: none;
-    border: none;
-    font-size: 24px;
-    cursor: pointer;
-    color: #ff3b3f;
-
-    &:hover {
-      color: #000;
-    }
+  @media (max-width: 480px) {
+    font-size: 20px;
   }
-`;
-
+`
 const ModalContent = styled.div`
-  margin-top: 20px;
+  margin-top: 25px;
+`
 
-  p {
-    margin: 5px 0;
-    font-size: 14px;
-    color: #333;
-
-    strong {
-      color: #ff3b3f;
-    }
-  }
-`;
+const Message = styled.p`
+  font-size: 18px;
+  color: #333;
+  text-align: center;
+  margin: 6rem 0;
+`
 
 const ButtonWrapper = styled.div`
   display: flex;
   justify-content: space-between;
-  margin-top: 20px;
-`;
+  gap: 15px;
+`
 
 const ModalButton = styled.button`
   padding: 15px 20px;
-  background-color: #f33823;
   color: #fff;
   border: none;
-  border-radius: 4px;
+  border-radius: 6px;
   cursor: pointer;
-  width: 100%;
-  text-align: center;
-  margin-top: 20px;
   font-size: 16px;
+  transition: background-color 0.3s;
+  flex: 1;
+  text-align: center;
+`
+
+const DeleteButton = styled(ModalButton)`
+  background-color: #f33823;
 
   &:hover {
     background-color: #e22e31;
   }
-`;
-
-const ModalButtonForDelete = styled(ModalButton)`
-  width: unset;
-`;
+`
 
 const CancelButton = styled(ModalButton)`
   background-color: #ddd;
   color: #333;
-  width: unset;
+
   &:hover {
     background-color: #ccc;
   }
-`;
+`
 
-Modal.setAppElement('#root');
+Modal.setAppElement("#root")

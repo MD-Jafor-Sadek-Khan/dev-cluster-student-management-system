@@ -1,8 +1,7 @@
-// Modals/EditStudentModal.js
-
 import React from "react"
 import styled from "styled-components"
 import Modal from "react-modal"
+import { FaTimes } from "react-icons/fa"
 
 const EditStudentModal = ({
   isEditModalOpen,
@@ -19,109 +18,144 @@ const EditStudentModal = ({
       contentLabel="Edit Student Details"
     >
       <ModalHeader>
-        <h2>Edit Student Details</h2>
-        <button onClick={closeEditModal}>&times;</button>
+        <Title>Edit Student Details</Title>
+        <CloseButton onClick={closeEditModal}>
+          <FaTimes />
+        </CloseButton>
       </ModalHeader>
       {selectedStudent && (
         <ModalContent as="form" onSubmit={handleSave}>
           <FormRow>
-            <Input
-              type="text"
-              name="firstName"
-              placeholder="First Name"
-              value={selectedStudent.firstName}
-              onChange={handleEditChange}
-              required
-            />
-            <Input
-              type="text"
-              name="middleName"
-              placeholder="Middle Name"
-              value={selectedStudent.middleName}
-              onChange={handleEditChange}
-            />
-            <Input
-              type="text"
-              name="lastName"
-              placeholder="Last Name"
-              value={selectedStudent.lastName}
-              onChange={handleEditChange}
-              required
-            />
+            <Label>
+              First Name
+              <Input
+                type="text"
+                name="firstName"
+                placeholder="First Name"
+                value={selectedStudent.firstName}
+                onChange={handleEditChange}
+                required
+              />
+            </Label>
+            <Label>
+              Middle Name
+              <Input
+                type="text"
+                name="middleName"
+                placeholder="Middle Name"
+                value={selectedStudent.middleName}
+                onChange={handleEditChange}
+              />
+            </Label>
+            <Label>
+              Last Name
+              <Input
+                type="text"
+                name="lastName"
+                placeholder="Last Name"
+                value={selectedStudent.lastName}
+                onChange={handleEditChange}
+                required
+              />
+            </Label>
           </FormRow>
           <FormRow>
-            <Select
-              name="class"
-              value={selectedStudent.class}
-              onChange={handleEditChange}
-              required
-            >
-              <option value="">Select Class</option>
-              <option value="1">Class 1</option>
-              <option value="2">Class 2</option>
-              <option value="3">Class 3</option>
-            </Select>
-            <Select
-              name="division"
-              value={selectedStudent.division}
-              onChange={handleEditChange}
-              required
-            >
-              <option value="">Select Division</option>
-              <option value="A">Division A</option>
-              <option value="B">Division B</option>
-              <option value="C">Division C</option>
-            </Select>
-            <Input
-              type="text"
-              name="rollNumber"
-              placeholder="Enter Roll Number in Digits"
-              value={selectedStudent.rollNumber}
-              onChange={handleEditChange}
-              required
-            />
+            <Label>
+              Class
+              <Select
+                name="class"
+                value={selectedStudent.class}
+                onChange={handleEditChange}
+                required
+              >
+                <option value="">Select Class</option>
+                <option value="1">Class 1</option>
+                <option value="2">Class 2</option>
+                <option value="3">Class 3</option>
+              </Select>
+            </Label>
+            <Label>
+              Division
+              <Select
+                name="division"
+                value={selectedStudent.division}
+                onChange={handleEditChange}
+                required
+              >
+                <option value="">Select Division</option>
+                <option value="A">Division A</option>
+                <option value="B">Division B</option>
+                <option value="C">Division C</option>
+              </Select>
+            </Label>
+            <Label>
+              Roll Number
+              <Input
+                type="text"
+                name="rollNumber"
+                placeholder="Enter Roll Number"
+                value={selectedStudent.rollNumber}
+                onChange={handleEditChange}
+                required
+              />
+            </Label>
           </FormRow>
           <FormRow>
-            <Input
-              type="text"
-              name="addressLine1"
-              placeholder="Address Line 1"
-              value={selectedStudent.addressLine1}
-              onChange={handleEditChange}
-              required
-            />
-            <Input
-              type="text"
-              name="addressLine2"
-              placeholder="Address Line 2"
-              value={selectedStudent.addressLine2}
-              onChange={handleEditChange}
-            />
+            <Label>
+              Address Line 1
+              <Input
+                type="text"
+                name="addressLine1"
+                placeholder="Address Line 1"
+                value={selectedStudent.addressLine1}
+                onChange={handleEditChange}
+                required
+              />
+            </Label>
+            <Label>
+              Address Line 2
+              <Input
+                type="text"
+                name="addressLine2"
+                placeholder="Address Line 2"
+                value={selectedStudent.addressLine2}
+                onChange={handleEditChange}
+              />
+            </Label>
           </FormRow>
           <FormRow>
-            <Input
-              type="text"
-              name="landmark"
-              placeholder="Landmark"
-              value={selectedStudent.landmark}
-              onChange={handleEditChange}
-            />
-            <Input
-              type="text"
-              name="city"
-              placeholder="City"
-              value={selectedStudent.city}
-              onChange={handleEditChange}
-              required
-            />
-            <Input
-              type="text"
-              name="pincode"
-              placeholder="Pincode"
-              value={selectedStudent.pincode}
-              onChange={handleEditChange}
-              required
-            />
+            <Label>
+              Landmark
+              <Input
+                type="text"
+                name="landmark"
+                placeholder="Landmark"
+                value={selectedStudent.landmark}
+                onChange={handleEditChange}
+              />
+            </Label>
+            <Label>
+              City
+              <Input
+                type="text"
+                name="city"
+                placeholder="City"
+                value={selectedStudent.city}
+                onChange={handleEditChange}
+                required
+              />
+            </Label>
+            <Label>
+              Pincode
+              <Input
+                type="text"
+                name="pincode"
+                placeholder="Pincode"
+                value={selectedStudent.pincode}
+                onChange={handleEditChange}
+                required
+              />
+            </Label>
           </FormRow>
           <ModalButton type="submit">Save</ModalButton>
         </ModalContent>
@@ -140,10 +174,11 @@ const ModalStyle = {
     bottom: "auto",
     marginRight: "-50%",
     transform: "translate(-50%, -50%)",
-    width: "50%",
-    padding: "20px",
-    borderRadius: "8px",
-    boxShadow: "0 0 10px rgba(0, 0, 0, 0.1)",
+    width: "60%",
+    padding: "30px",
+    borderRadius: "12px",
+    boxShadow: "0 0 20px rgba(0, 0, 0, 0.2)",
+    backgroundColor: "#fff",
   },
 }
 
@@ -151,75 +186,87 @@ const ModalHeader = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  border-bottom: 1px solid #ddd;
-  padding-bottom: 10px;
+`
 
-  h2 {
-    margin: 0;
-    font-size: 18px;
-    color: #ff3b3f;
+const Title = styled.h2`
+  margin: 0;
+  font-size: 20px;
+  color: #ff3b3f;
+`
+
+const CloseButton = styled.button`
+  background: none;
+  border: none;
+  font-size: 24px;
+  cursor: pointer;
+  color: #e63946;
+  transition: color 0.3s ease;
+
+  &:hover {
+    color: #d00000;
   }
 
-  button {
-    background: none;
-    border: none;
-    font-size: 24px;
-    cursor: pointer;
-    color: #ff3b3f;
-
-    &:hover {
-      color: #000;
-    }
+  @media (max-width: 480px) {
+    font-size: 20px;
   }
 `
 
 const ModalContent = styled.div`
-  margin-top: 20px;
-
-  p {
-    margin: 5px 0;
-    font-size: 14px;
-    color: #333;
-
-    strong {
-      color: #ff3b3f;
-    }
-  }
+  margin: 3.2rem 0 0 0;
 `
 
 const FormRow = styled.div`
   display: flex;
-  margin-bottom: 15px;
-  gap: 10px;
+  margin-bottom: 20px;
+  gap: 15px;
+`
+
+const Label = styled.label`
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  font-size: 14px;
+  color: #333;
 `
 
 const Input = styled.input`
-  flex: 1;
-  padding: 10px;
+  padding: 12px;
   border: 1px solid #ddd;
-  border-radius: 4px;
-  font-size: 14px;
+  border-radius: 6px;
+  font-size: 16px;
+  transition: border 0.3s;
+
+  &:focus {
+    border-color: #f33823;
+    outline: none;
+  }
 `
 
 const Select = styled.select`
-  flex: 1;
-  padding: 10px;
+  padding: 12px;
   border: 1px solid #ddd;
-  border-radius: 4px;
-  font-size: 14px;
+  border-radius: 6px;
+  font-size: 16px;
+  transition: border 0.3s;
+
+  &:focus {
+    border-color: #f33823;
+    outline: none;
+  }
 `
 
 const ModalButton = styled.button`
-  padding: 15px 20px;
+  padding: 16px 0;
   background-color: #f33823;
   color: #fff;
   border: none;
-  border-radius: 4px;
+  border-radius: 6px;
   cursor: pointer;
   width: 100%;
   text-align: center;
-  margin-top: 20px;
-  font-size: 16px;
+  margin-top: 30px;
+  font-size: 18px;
+  transition: background-color 0.3s;
 
   &:hover {
     background-color: #e22e31;
