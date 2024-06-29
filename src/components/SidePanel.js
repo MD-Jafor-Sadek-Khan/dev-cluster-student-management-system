@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { LuUsers, LuLayoutList, LuLogOut } from "react-icons/lu";
-import { useDispatch } from "react-redux"; 
+import { useDispatch, useSelector } from "react-redux"; 
 import { signOut } from "firebase/auth";
 import { auth } from "../firebase";  
 import { clearUser } from "../store/authSlice"; 
@@ -10,18 +10,25 @@ import { clearUser } from "../store/authSlice";
 const SidePanel = () => {
   const location = useLocation();
   const navigate = useNavigate();
-  const dispatch = useDispatch();  
+  const dispatch = useDispatch();
+  const user = useSelector((state) => state.auth.user);
   const [selected, setSelected] = useState(location.pathname);
 
   useEffect(() => {
     setSelected(location.pathname);
   }, [location.pathname]);
 
+  useEffect(() => {
+    if (!user) {
+      navigate("/login");
+    }
+  }, [user, navigate]);
+
   const handleLogout = async () => {
     try {
-      await signOut(auth);  
-      dispatch(clearUser());  
-      navigate("/login");  
+      await signOut(auth);
+      dispatch(clearUser());
+      navigate("/login");
     } catch (error) {
       console.error("Error signing out:", error);
     }
