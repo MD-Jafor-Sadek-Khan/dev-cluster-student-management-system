@@ -39,7 +39,7 @@ const ModalStyle = {
     marginRight: "-50%",
     transform: "translate(-50%, -50%)",
     width: "40%",
-    padding: "30px",
+    padding: "2.5rem 3rem",
     borderRadius: "12px",
     boxShadow: "0 0 20px rgba(0, 0, 0, 0.2)",
     backgroundColor: "#fff",
@@ -50,8 +50,6 @@ const ModalHeader = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-//   border-bottom: 2px solid #f33823;
-//   padding-bottom: 15px;
 `
 
 const Title = styled.h2`

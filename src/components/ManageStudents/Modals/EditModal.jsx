@@ -175,7 +175,7 @@ const ModalStyle = {
     marginRight: "-50%",
     transform: "translate(-50%, -50%)",
     width: "60%",
-    padding: "30px",
+    padding: " 2.5rem 3rem",
     borderRadius: "12px",
     boxShadow: "0 0 20px rgba(0, 0, 0, 0.2)",
     backgroundColor: "#fff",
@@ -230,6 +230,7 @@ const Label = styled.label`
 `
 
 const Input = styled.input`
+  margin: 5px 0;
   padding: 12px;
   border: 1px solid #ddd;
   border-radius: 6px;
@@ -243,6 +244,8 @@ const Input = styled.input`
 `
 
 const Select = styled.select`
+  margin: 5px 0;
+
   padding: 12px;
   border: 1px solid #ddd;
   border-radius: 6px;

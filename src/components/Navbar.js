@@ -26,7 +26,7 @@ const Navbar = () => {
 export default Navbar
 
 const Nav = styled.nav`
-  margin-top: 1.5rem;
+  margin-top: 1.1rem;
   height: 70px;
   display: flex;
   justify-content: flex-end;

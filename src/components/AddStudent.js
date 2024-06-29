@@ -190,13 +190,9 @@ export default AddStudent
 const Container = styled.div`
   background-color: #fffcfb;
   border-radius: 8px;
-  margin-top: 1.7rem;
-  padding: 1rem;
-  @media (max-width: 768px) {
-    padding: 0.5rem;
-  }
+  margin-top: 2rem;
+
   @media (max-width: 480px) {
-    padding: 0.25rem;
     margin-top: 1rem;
   }
 `
@@ -268,7 +264,7 @@ const Input = styled.input`
   border: 1px solid #ddd;
   border-radius: 4px;
   font-size: 14px;
-  
+
   &::placeholder {
     padding: 0.5rem;
   }

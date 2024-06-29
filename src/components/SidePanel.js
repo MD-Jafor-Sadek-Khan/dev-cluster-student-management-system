@@ -1,4 +1,4 @@
-import React, { useState } from "react"
+import React, { useState, useEffect } from "react"
 import { Link, useLocation, useNavigate } from "react-router-dom"
 import styled from "styled-components"
 import { LuUsers, LuLayoutList, LuLogOut } from "react-icons/lu"
@@ -8,8 +8,11 @@ const SidePanel = () => {
   const navigate = useNavigate()
   const [selected, setSelected] = useState(location.pathname)
 
+  useEffect(() => {
+    setSelected(location.pathname)
+  }, [location.pathname])
+
   const handleLogout = () => {
-    setSelected("/logout")
     navigate("/login")
   }
 
@@ -19,7 +22,10 @@ const SidePanel = () => {
       <Menu>
         <MenuItem
           primary={selected === "/add-student"}
-          onClick={() => setSelected("/add-student")}
+          onClick={() => {
+            setSelected("/add-student")
+            navigate("/add-student")
+          }}
         >
           <LuUsers />
           <StyledLink primary={selected === "/add-student"} to="/add-student">
@@ -28,7 +34,10 @@ const SidePanel = () => {
         </MenuItem>
         <MenuItem
           primary={selected === "/manage-students"}
-          onClick={() => setSelected("/manage-students")}
+          onClick={() => {
+            setSelected("/manage-students")
+            navigate("/manage-students")
+          }}
         >
           <LuLayoutList />
           <StyledLink
@@ -55,7 +64,6 @@ const Sidebar = styled.div`
   width: 280px;
   height: 100vh;
   background-color: #fffcfb;
-  padding: 8px;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
@@ -67,7 +75,7 @@ const CompanyName = styled.div`
   font-weight: bold;
   margin-bottom: 20px;
   color: #f33823;
-  margin-top: 1.1rem;
+  margin-top: 1.7rem;
 `
 
 const Menu = styled.div`

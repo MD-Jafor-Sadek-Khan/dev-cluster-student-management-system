@@ -6,7 +6,6 @@ import {
   AiOutlineDelete,
   AiOutlineSearch,
 } from "react-icons/ai"
-
 import { db } from "../../firebase"
 import { collection, getDocs, deleteDoc, doc, setDoc } from "firebase/firestore"
 import Modal from "react-modal"
@@ -23,6 +22,8 @@ const ManageStudents = () => {
   const [selectedStudent, setSelectedStudent] = useState(null)
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false)
   const [deleteStudentId, setDeleteStudentId] = useState(null)
+  const [currentPage, setCurrentPage] = useState(1)
+  const [studentsPerPage] = useState(5)
 
   useEffect(() => {
     const fetchStudents = async () => {
@@ -59,11 +60,12 @@ const ManageStudents = () => {
     setSearch(e.target.value)
   }
 
-  const filteredStudents = students.filter(
-    (student) =>
-      student.firstName.toLowerCase().includes(search.toLowerCase()) ||
-      student.lastName.toLowerCase().includes(search.toLowerCase())
-  )
+  const filteredStudents = students.filter((student) => {
+    const fullName =
+      `${student.firstName} ${student.middleName} ${student.lastName}`.toLowerCase()
+    const searchParts = search.toLowerCase().split(" ")
+    return searchParts.every((part) => fullName.includes(part))
+  })
 
   const handleExport = () => {
     const csvContent = [
@@ -156,6 +158,29 @@ const ManageStudents = () => {
 
   const currentDateTime = formatDate(new Date())
 
+  const indexOfLastStudent = currentPage * studentsPerPage
+  const indexOfFirstStudent = indexOfLastStudent - studentsPerPage
+  const currentStudents = filteredStudents.slice(
+    indexOfFirstStudent,
+    indexOfLastStudent
+  )
+
+  const totalPages = Math.ceil(filteredStudents.length / studentsPerPage)
+
+  const paginate = (pageNumber) => setCurrentPage(pageNumber)
+
+  const nextPage = () => {
+    if (currentPage < totalPages) {
+      setCurrentPage(currentPage + 1)
+    }
+  }
+
+  const prevPage = () => {
+    if (currentPage > 1) {
+      setCurrentPage(currentPage - 1)
+    }
+  }
+
   return (
     <Container>
       <Header>
@@ -185,7 +210,7 @@ const ManageStudents = () => {
           </tr>
         </thead>
         <tbody>
-          {filteredStudents.map((student) => (
+          {currentStudents.map((student) => (
             <tr key={student.id}>
               <td>{`${student.firstName} ${student.middleName} ${student.lastName}`}</td>
               <td>{student.class}</td>
@@ -205,6 +230,23 @@ const ManageStudents = () => {
           ))}
         </tbody>
       </Table>
+      <Pagination>
+        <PageNumber onClick={prevPage} disabled={currentPage === 1}>
+          Previous
+        </PageNumber>
+        {Array.from({ length: totalPages }, (_, i) => (
+          <PageNumber
+            key={i + 1}
+            onClick={() => paginate(i + 1)}
+            active={currentPage === i + 1}
+          >
+            {i + 1}
+          </PageNumber>
+        ))}
+        <PageNumber onClick={nextPage} disabled={currentPage === totalPages}>
+          Next
+        </PageNumber>
+      </Pagination>
 
       <ViewStudentModal
         student={selectedStudent}
@@ -237,10 +279,7 @@ export default ManageStudents
 const Container = styled.div`
   background-color: #fffcfb;
   border-radius: 8px;
-  margin-top: 1.3rem;
-  @media (max-width: 768px) {
-    padding: 0.5rem;
-  }
+  margin-top: 1.4rem;
 `
 
 const Header = styled.div`
@@ -451,8 +490,32 @@ const Timestamp = styled.div`
   }
 `
 
+const Pagination = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px;
+`
 
+const PageNumber = styled.span`
+  margin: 0 5px;
+  padding: 9px 18px;
+  cursor: pointer;
+  border-radius: 3px;
+  box-shadow: 0px 0px 3px 0px #00000033;
+  background-color: ${(props) => (props.active ? "#f33823" : "#fff")};
+  color: ${(props) => (props.active ? "#fff" : "#000")};
+
+  &:hover {
+    background-color: #f33823;
+    color: #fff;
+  }
+
+  ${(props) =>
+    props.disabled &&
+    `
+    pointer-events: none;
+    opacity: 0.5;
+  `}
+`
 Modal.setAppElement("#root")
-
-
-// original
