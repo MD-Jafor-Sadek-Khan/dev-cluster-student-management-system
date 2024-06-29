@@ -1,96 +1,96 @@
-import React, { useState } from "react";
-import styled from "styled-components";
-import { useNavigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
-import { auth, googleProvider } from "../firebase";
+import React, { useState } from "react"
+import styled from "styled-components"
+import { useNavigate } from "react-router-dom"
+import { useDispatch } from "react-redux"
+import { auth, googleProvider } from "../firebase"
 import {
   signInWithPopup,
   signInWithEmailAndPassword,
   createUserWithEmailAndPassword,
   updateProfile,
-} from "firebase/auth";
-import { setUser } from "../store/authSlice";
-import { FcGoogle } from "react-icons/fc";
-import { toast } from "react-hot-toast";
+} from "firebase/auth"
+import { setUser } from "../store/authSlice"
+import { FcGoogle } from "react-icons/fc"
+import { toast } from "react-hot-toast"
 
 const Login = () => {
-  const navigate = useNavigate();
-  const dispatch = useDispatch();
-  const [isSignup, setIsSignup] = useState(false);
-  const [fullName, setFullName] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [confirmPassword, setConfirmPassword] = useState("");
+  const navigate = useNavigate()
+  const dispatch = useDispatch()
+  const [isSignup, setIsSignup] = useState(false)
+  const [fullName, setFullName] = useState("")
+  const [email, setEmail] = useState("")
+  const [password, setPassword] = useState("")
+  const [confirmPassword, setConfirmPassword] = useState("")
 
   const handleGoogleLogin = async () => {
     try {
-      const result = await signInWithPopup(auth, googleProvider);
+      const result = await signInWithPopup(auth, googleProvider)
       const user = {
         uid: result.user.uid,
         email: result.user.email,
         displayName: result.user.displayName,
-      };
-      dispatch(setUser(user));
-      navigate("/manage-students");
-      toast.success("Google login successful!");
+      }
+      dispatch(setUser(user))
+      navigate("/manage-students")
+      toast.success("Google login successful!")
     } catch (error) {
-      console.error("Google login error:", error);
-      toast.error("Google login failed.");
+      console.error("Google login error:", error)
+      toast.error("Google login failed.")
     }
-  };
+  }
 
   const handleEmailLogin = async (event) => {
-    event.preventDefault();
+    event.preventDefault()
     try {
-      const result = await signInWithEmailAndPassword(auth, email, password);
+      const result = await signInWithEmailAndPassword(auth, email, password)
       const user = {
         uid: result.user.uid,
         email: result.user.email,
         displayName: result.user.displayName,
-      };
-      dispatch(setUser(user));
-      navigate("/manage-students");
-      toast.success("Login successful!");
+      }
+      dispatch(setUser(user))
+      navigate("/manage-students")
+      toast.success("Login successful!")
     } catch (error) {
-      console.error("Email login error:", error);
-      toast.error("Email login failed.");
+      console.error("Email login error:", error)
+      toast.error("Email login failed.")
     }
-  };
+  }
 
   const handleSignup = async (event) => {
-    event.preventDefault();
+    event.preventDefault()
     if (password !== confirmPassword) {
-      toast.error("Passwords do not match");
-      return;
+      toast.error("Passwords do not match")
+      return
     }
     try {
-      const result = await createUserWithEmailAndPassword(auth, email, password);
-      await updateProfile(result.user, { displayName: fullName });
+      const result = await createUserWithEmailAndPassword(auth, email, password)
+      await updateProfile(result.user, { displayName: fullName })
       const user = {
         uid: result.user.uid,
         email: result.user.email,
         displayName: result.user.displayName,
-      };
-      dispatch(setUser(user));
-      toast.success("Signup successful! Please log in.");
-      setIsSignup(false);
+      }
+      dispatch(setUser(user))
+      toast.success("Signup successful! Please log in.")
+      setIsSignup(false)
     } catch (error) {
-      console.error("Signup error:", error);
+      console.error("Signup error:", error)
       if (error.code === "auth/email-already-in-use") {
-        toast.error("Email already in use.");
+        toast.error("Email already in use.")
       } else {
-        toast.error("Signup failed.");
+        toast.error("Signup failed.")
       }
     }
-  };
+  }
 
   const toggleForm = () => {
-    setIsSignup(!isSignup);
-    setFullName("");
-    setEmail("");
-    setPassword("");
-    setConfirmPassword("");
-  };
+    setIsSignup(!isSignup)
+    setFullName("")
+    setEmail("")
+    setPassword("")
+    setConfirmPassword("")
+  }
 
   return (
     <Wrapper>
@@ -141,45 +141,39 @@ const Login = () => {
         </ToggleText>
       </LoginContainer>
     </Wrapper>
-  );
-};
+  )
+}
 
-export default Login;
+export default Login
 
 const Wrapper = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100vh;
-  background: url("/path/to/background.jpg") no-repeat center center fixed;
-  background-size: cover;
-`;
+`
 
 const LoginContainer = styled.div`
-  background: rgba(255, 255, 255, 0.9);
-  padding: 40px;
   border-radius: 12px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  width: 400px;
-  max-width: 90%;
+  width: 40%;
+  margin: 4.4% 20% 0 0;
   font-family: "Roboto", sans-serif;
-`;
+`
 
 const Header = styled.div`
   text-align: center;
   margin-bottom: 20px;
-`;
+`
 
 const Title = styled.h1`
   color: #333;
   font-size: 28px;
   margin: 0;
-`;
+`
 
 const Form = styled.form`
   display: flex;
   flex-direction: column;
-`;
+`
 
 const Input = styled.input`
   width: 100%;
@@ -195,7 +189,7 @@ const Input = styled.input`
     box-shadow: 0 0 8px rgba(0, 123, 255, 0.25);
     outline: none;
   }
-`;
+`
 
 const Button = styled.button`
   width: 100%;
@@ -211,7 +205,7 @@ const Button = styled.button`
   &:hover {
     background: linear-gradient(45deg, #d32f2f, #e57373);
   }
-`;
+`
 
 const Separator = styled.div`
   margin: 20px 0;
@@ -237,7 +231,7 @@ const Separator = styled.div`
   &::after {
     right: 0;
   }
-`;
+`
 
 const GoogleButton = styled.button`
   display: flex;
@@ -256,7 +250,7 @@ const GoogleButton = styled.button`
   &:hover {
     background-color: #357ae8;
   }
-`;
+`
 
 const ToggleText = styled.p`
   text-align: center;
@@ -268,4 +262,4 @@ const ToggleText = styled.p`
   &:hover {
     text-decoration: underline;
   }
-`;
+`
