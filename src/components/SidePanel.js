@@ -1,20 +1,31 @@
-import React, { useState, useEffect } from "react"
-import { Link, useLocation, useNavigate } from "react-router-dom"
-import styled from "styled-components"
-import { LuUsers, LuLayoutList, LuLogOut } from "react-icons/lu"
+import React, { useState, useEffect } from "react";
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import styled from "styled-components";
+import { LuUsers, LuLayoutList, LuLogOut } from "react-icons/lu";
+import { useDispatch } from "react-redux"; 
+import { signOut } from "firebase/auth";
+import { auth } from "../firebase";  
+import { clearUser } from "../store/authSlice"; 
 
 const SidePanel = () => {
-  const location = useLocation()
-  const navigate = useNavigate()
-  const [selected, setSelected] = useState(location.pathname)
+  const location = useLocation();
+  const navigate = useNavigate();
+  const dispatch = useDispatch();  
+  const [selected, setSelected] = useState(location.pathname);
 
   useEffect(() => {
-    setSelected(location.pathname)
-  }, [location.pathname])
+    setSelected(location.pathname);
+  }, [location.pathname]);
 
-  const handleLogout = () => {
-    navigate("/login")
-  }
+  const handleLogout = async () => {
+    try {
+      await signOut(auth);  
+      dispatch(clearUser());  
+      navigate("/login");  
+    } catch (error) {
+      console.error("Error signing out:", error);
+    }
+  };
 
   return (
     <Sidebar>
@@ -23,8 +34,8 @@ const SidePanel = () => {
         <MenuItem
           primary={selected === "/add-student"}
           onClick={() => {
-            setSelected("/add-student")
-            navigate("/add-student")
+            setSelected("/add-student");
+            navigate("/add-student");
           }}
         >
           <LuUsers />
@@ -35,8 +46,8 @@ const SidePanel = () => {
         <MenuItem
           primary={selected === "/manage-students"}
           onClick={() => {
-            setSelected("/manage-students")
-            navigate("/manage-students")
+            setSelected("/manage-students");
+            navigate("/manage-students");
           }}
         >
           <LuLayoutList />
@@ -55,10 +66,10 @@ const SidePanel = () => {
         </MenuItem>
       </Menu>
     </Sidebar>
-  )
-}
+  );
+};
 
-export default SidePanel
+export default SidePanel;
 
 const Sidebar = styled.div`
   width: 280px;
@@ -67,7 +78,7 @@ const Sidebar = styled.div`
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-`
+`;
 
 const CompanyName = styled.div`
   margin-left: 4rem;
@@ -76,7 +87,7 @@ const CompanyName = styled.div`
   margin-bottom: 20px;
   color: #f33823;
   margin-top: 1.7rem;
-`
+`;
 
 const Menu = styled.div`
   margin-top: 7.6rem;
@@ -84,7 +95,7 @@ const Menu = styled.div`
   flex-direction: column;
   flex-grow: 1;
   width: 100%;
-`
+`;
 
 const MenuItem = styled.div`
   margin-bottom: 20px;
@@ -100,10 +111,10 @@ const MenuItem = styled.div`
     width: 24px;
     color: ${(props) => (props.primary ? "#fff" : "rgba(0,0,0,0.6)")};
   }
-`
+`;
 
 const StyledLink = styled(Link)`
   text-decoration: none;
   color: ${(props) => (props.primary ? "#fff" : "rgba(0,0,0,0.6)")};
   font-size: 16px;
-`
+`;

@@ -7,6 +7,7 @@ import ManageStudents from './components/ManageStudents/ManageStudents';
 import Login from './components/Login';
 import GlobalStyle from './styles/GlobalStyle';
 import styled from 'styled-components';
+import { Toaster } from 'react-hot-toast';
 
 const App = () => {
   return (
@@ -25,6 +26,7 @@ const App = () => {
           </ContentArea>
         </MainContent>
       </AppContainer>
+      <Toaster />
     </Router>
   );
 };

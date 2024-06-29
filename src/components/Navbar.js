@@ -1,12 +1,7 @@
 import React from "react"
 import styled from "styled-components"
-import { FaUser } from "react-icons/fa"
+
 import { useSelector } from "react-redux"
-import { FiUser } from "react-icons/fi"
-import { BiUser } from "react-icons/bi"
-import { CgUser } from "react-icons/cg"
-import { LiaUser } from "react-icons/lia"
-import { IoPersonOutline } from "react-icons/io5"
 
 import { LuUser } from "react-icons/lu"
 
