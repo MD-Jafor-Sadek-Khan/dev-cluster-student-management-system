@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Navbar from './components/Navbar';
 import SidePanel from './components/SidePanel';
 import AddStudent from './components/AddStudent';
-import ManageStudents from './components/ManageStudents';
+import ManageStudents from './components/ManageStudents/ManageStudents';
 import Login from './components/Login';
 import GlobalStyle from './styles/GlobalStyle';
 import styled from 'styled-components';

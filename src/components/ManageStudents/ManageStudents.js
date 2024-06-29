@@ -7,10 +7,13 @@ import {
   AiOutlineSearch,
 } from "react-icons/ai"
 
-import { db } from "../firebase"
+import { db } from "../../firebase"
 import { collection, getDocs, deleteDoc, doc, setDoc } from "firebase/firestore"
 import Modal from "react-modal"
 import { saveAs } from "file-saver"
+import ViewStudentModal from "./Modals/ViewModal"
+import EditStudentModal from "./Modals/EditModal"
+import DeleteStudentModal from "./Modals/DeleteModal"
 
 const ManageStudents = () => {
   const [students, setStudents] = useState([])
@@ -34,20 +37,6 @@ const ManageStudents = () => {
 
     fetchStudents()
   }, [])
-
-  // const handleDelete = async (id) => {
-  //   await deleteDoc(doc(db, "students", id))
-  //   setStudents(students.filter((student) => student.id !== id))
-  // }
-  // const handleDelete = async (id) => {
-  //   const confirmDelete = window.confirm(
-  //     "Are you sure you want to delete this item?"
-  //   )
-  //   if (confirmDelete) {
-  //     await deleteDoc(doc(db, "students", id))
-  //     setStudents(students.filter((student) => student.id !== id))
-  //   }
-  // }
 
   const handleDelete = (id) => {
     setDeleteStudentId(id)
@@ -217,7 +206,7 @@ const ManageStudents = () => {
         </tbody>
       </Table>
 
-      <Modal
+      {/* <Modal
         isOpen={isViewModalOpen}
         onRequestClose={closeViewModal}
         style={ModalStyle}
@@ -264,9 +253,16 @@ const ManageStudents = () => {
             </p>
           </ModalContent>
         )}
-      </Modal>
+      </Modal> */}
 
-      <Modal
+      <ViewStudentModal
+        student={selectedStudent}
+        isOpen={isViewModalOpen}
+        onRequestClose={closeViewModal}
+        key={selectedStudent?.rollNumber}
+      />
+
+      {/* <Modal
         isOpen={isEditModalOpen}
         onRequestClose={closeEditModal}
         style={ModalStyle}
@@ -380,9 +376,18 @@ const ManageStudents = () => {
             <ModalButton type="submit">Save</ModalButton>
           </ModalContent>
         )}
-      </Modal>
+      </Modal> */}
 
-      <Modal
+      <EditStudentModal
+        selectedStudent={selectedStudent}
+        isEditModalOpen={isEditModalOpen}
+        closeEditModal={closeEditModal}
+        handleEditChange={handleEditChange}
+        handleSave={handleSave}
+        key={selectedStudent?.rollNumber}
+      />
+
+      {/* <Modal
         isOpen={isDeleteModalOpen}
         onRequestClose={closeDeleteModal}
         style={ModalStyle}
@@ -401,7 +406,10 @@ const ManageStudents = () => {
             <CancelButton onClick={closeDeleteModal}>Cancel</CancelButton>
           </ButtonWrapper>
         </ModalContent>
-      </Modal>
+      </Modal> */}
+
+
+      <DeleteStudentModal isOpen={isDeleteModalOpen} confirmDelete={confirmDelete} onRequestClose={closeDeleteModal} key={deleteStudentId}/>
     </Container>
   )
 }
