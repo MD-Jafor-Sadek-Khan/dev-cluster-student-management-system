@@ -2,14 +2,14 @@ import React, { useState } from "react"
 import styled from "styled-components"
 import { useNavigate } from "react-router-dom"
 import { useDispatch } from "react-redux"
-import { auth, googleProvider } from "../firebase"
+import { auth, googleProvider } from "../../firebase"
 import {
   signInWithPopup,
   signInWithEmailAndPassword,
   createUserWithEmailAndPassword,
   updateProfile,
 } from "firebase/auth"
-import { setUser } from "../store/authSlice"
+import { setUser } from "../../store/authSlice"
 import { FcGoogle } from "react-icons/fc"
 import { toast } from "react-hot-toast"
 
@@ -129,11 +129,11 @@ const Login = () => {
           )}
           <Button type="submit">{isSignup ? "Sign Up" : "Login"}</Button>
           <Separator>or</Separator>
-          <GoogleButton onClick={handleGoogleLogin}>
-            <FcGoogle size="20px" style={{ marginRight: "8px" }} />
-            {isSignup ? "Sign Up with Google" : "Login with Google"}
-          </GoogleButton>
         </Form>
+        <GoogleButton onClick={handleGoogleLogin}>
+          <FcGoogle size="20px" style={{ marginRight: "8px" }} />
+          {isSignup ? "Sign Up with Google" : "Login with Google"}
+        </GoogleButton>
         <ToggleText onClick={toggleForm}>
           {isSignup
             ? "Already have an account? Login"
