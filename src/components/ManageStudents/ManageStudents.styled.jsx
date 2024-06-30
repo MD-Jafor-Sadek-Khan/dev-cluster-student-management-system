@@ -104,7 +104,8 @@ export const ActionButtonFilter = styled.button`
   cursor: pointer;
   font-size: 13px;
   margin-right: 1rem;
-  border: ${(props) => (props.isFilterApplied ? "2px solid blue" : "0.5px solid #647887")};
+  border: ${(props) => (props.isFilterApplied ? "2px solid #f33823" : "0.5px solid #647887")};
+  box-shadow: ${(props) => (props.isFilterApplied ? "0px 4px 4px 0px #00000040" : "none")};
 
   &:hover {
     box-shadow: 0px 4px 4px 0px #00000040;
