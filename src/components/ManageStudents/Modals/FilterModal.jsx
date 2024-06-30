@@ -173,7 +173,7 @@ const ModalButton = styled.button`
   background: ${(props) => (props.cancel ? "#6c757d" : "#f33823")};
   color: white;
   border: none;
-  padding: 12px 20px;
+  padding: 8px 16px;
   border-radius: 8px;
   cursor: pointer;
   font-size: 1rem;
@@ -184,7 +184,7 @@ const ModalButton = styled.button`
 `
 
 const ModalInput = styled.input`
-  padding: 15px;
+  padding: 8px 15px;
   border: 1px solid #ccc;
   border-radius: 8px;
   font-size: 1rem;

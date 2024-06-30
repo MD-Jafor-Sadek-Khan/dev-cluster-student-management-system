@@ -179,6 +179,7 @@ const ManageStudents = () => {
 
   const openViewModal = (student) => {
     setSelectedStudent(student)
+    console.log({student});
     setIsViewModalOpen(true)
   }
 
@@ -197,6 +198,7 @@ const ManageStudents = () => {
 
   const handleEditChange = (e) => {
     const { name, value } = e.target
+
     setSelectedStudent((prevState) => ({
       ...prevState,
       [name]: value,
@@ -333,7 +335,7 @@ const ManageStudents = () => {
         student={selectedStudent}
         isOpen={isViewModalOpen}
         onRequestClose={closeViewModal}
-        key={selectedStudent?.rollNumber}
+        key={selectedStudent?.id}
       />
 
       <EditStudentModal
@@ -342,14 +344,14 @@ const ManageStudents = () => {
         closeEditModal={closeEditModal}
         handleEditChange={handleEditChange}
         handleSave={handleSave}
-        key={selectedStudent?.rollNumber}
+        key={selectedStudent?.id}
       />
 
       <DeleteStudentModal
         isOpen={isDeleteModalOpen}
         confirmDelete={confirmDelete}
         onRequestClose={closeDeleteModal}
-        key={selectedStudent?.rollNumber}
+        key={selectedStudent?.id}
       />
 
       <FilterModal
