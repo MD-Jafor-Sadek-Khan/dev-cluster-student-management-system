@@ -19,6 +19,28 @@ const AddStudent = () => {
     pincode: "",
   })
   const [userId, setUserId] = useState(null)
+  const [currentDateTime, setCurrentDateTime] = useState(formatDate(new Date()))
+
+
+
+  function formatDate(date) {
+    const options = { day: "2-digit", month: "long", year: "numeric" }
+    const formattedDate = date.toLocaleDateString("en-GB", options)
+    const formattedTime = date.toLocaleTimeString("en-GB", {
+      hour: "2-digit",
+      minute: "2-digit",
+      hour12: false,
+    })
+    return `${formattedDate} ${formattedTime}`
+  }
+
+  useEffect(() => {
+    const intervalId = setInterval(() => {
+      setCurrentDateTime(formatDate(new Date()))
+    }, 10000) 
+
+    return () => clearInterval(intervalId) 
+  }, [])
 
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged((user) => {
@@ -44,7 +66,6 @@ const AddStudent = () => {
       return
     }
 
-    // Validation logic
     const { firstName, lastName, class: studentClass, division, rollNumber, addressLine1, city, pincode } = student
 
     if (!firstName || !lastName || !studentClass || !division || !rollNumber || !addressLine1 || !city || !pincode) {
@@ -110,18 +131,6 @@ const AddStudent = () => {
     }
   }
 
-  function formatDate(date) {
-    const options = { day: "2-digit", month: "long", year: "numeric" }
-    const formattedDate = date.toLocaleDateString("en-GB", options)
-    const formattedTime = date.toLocaleTimeString("en-GB", {
-      hour: "2-digit",
-      minute: "2-digit",
-      hour12: false,
-    })
-    return `${formattedDate} ${formattedTime}`
-  }
-
-  const currentDateTime = formatDate(new Date())
 
   return (
     <Container>

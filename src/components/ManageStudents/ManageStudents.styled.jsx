@@ -96,6 +96,31 @@ export const ActionButton = styled.button`
     margin-bottom: 0.5rem;
   }
 `
+export const ActionButtonFilter = styled.button`
+  padding: 16px 35.5px;
+  background-color: #f8f9fb;
+  color: #4e5159;
+  border-radius: 10px;
+  cursor: pointer;
+  font-size: 13px;
+  margin-right: 1rem;
+  border: ${(props) => (props.isFilterApplied ? "2px solid blue" : "0.5px solid #647887")};
+
+  &:hover {
+    box-shadow: 0px 4px 4px 0px #00000040;
+  }
+
+  @media (max-width: 768px) {
+    padding: 10px 20px;
+    margin-right: 0.5rem;
+  }
+
+  @media (max-width: 480px) {
+    width: 100%;
+    margin-right: 0;
+    margin-bottom: 0.5rem;
+  }
+`
 
 export const Table = styled.table`
   width: 100%;

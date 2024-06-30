@@ -18,6 +18,7 @@ import FilterModal from "./Modals/FilterModal"
 import { getAuth, onAuthStateChanged } from "firebase/auth"
 import {
   ActionButton,
+  ActionButtonFilter,
   Container,
   Header,
   IconWrapper,
@@ -33,6 +34,7 @@ import {
 import toast from "react-hot-toast"
 
 const ManageStudents = () => {
+  const [currentDateTime, setCurrentDateTime] = useState(formatDate(new Date()))
   const [students, setStudents] = useState([])
   const [search, setSearch] = useState("")
   const [isViewModalOpen, setIsViewModalOpen] = useState(false)
@@ -44,6 +46,7 @@ const ManageStudents = () => {
   const [studentsPerPage] = useState(5)
   const [user, setUser] = useState(null)
   const [isFilterModalOpen, setIsFilterModalOpen] = useState(false)
+  const [isFilterApplied, setIsFilterApplied] = useState(false)
   const [filters, setFilters] = useState({
     class: "",
     division: "",
@@ -52,6 +55,14 @@ const ManageStudents = () => {
   })
 
   const filterButtonRef = useRef(null)
+
+  useEffect(() => {
+    const intervalId = setInterval(() => {
+      setCurrentDateTime(formatDate(new Date()))
+    }, 10000)
+
+    return () => clearInterval(intervalId)
+  }, [])
 
   useEffect(() => {
     const auth = getAuth()
@@ -89,6 +100,17 @@ const ManageStudents = () => {
     }
   }, [user])
 
+  function formatDate(date) {
+    const options = { day: "2-digit", month: "long", year: "numeric" }
+    const formattedDate = date.toLocaleDateString("en-GB", options)
+    const formattedTime = date.toLocaleTimeString("en-GB", {
+      hour: "2-digit",
+      minute: "2-digit",
+      hour12: false,
+    })
+    return `${formattedDate} ${formattedTime}`
+  }
+
   const handleDelete = (id) => {
     setDeleteStudentId(id)
     setIsDeleteModalOpen(true)
@@ -117,6 +139,12 @@ const ManageStudents = () => {
 
   const applyFilter = (filters) => {
     setFilters(filters)
+    setIsFilterApplied(
+      filters.class !== "" ||
+        filters.division !== "" ||
+        filters.rollNumber !== "" ||
+        filters.viewAll
+    )
   }
 
   const filteredStudents = students.filter((student) => {
@@ -179,7 +207,7 @@ const ManageStudents = () => {
 
   const openViewModal = (student) => {
     setSelectedStudent(student)
-    console.log({student});
+    console.log({ student })
     setIsViewModalOpen(true)
   }
 
@@ -222,19 +250,6 @@ const ManageStudents = () => {
     }
   }
 
-  function formatDate(date) {
-    const options = { day: "2-digit", month: "long", year: "numeric" }
-    const formattedDate = date.toLocaleDateString("en-GB", options)
-    const formattedTime = date.toLocaleTimeString("en-GB", {
-      hour: "2-digit",
-      minute: "2-digit",
-      hour12: false,
-    })
-    return `${formattedDate} ${formattedTime}`
-  }
-
-  const currentDateTime = formatDate(new Date())
-
   const indexOfLastStudent = currentPage * studentsPerPage
   const indexOfFirstStudent = indexOfLastStudent - studentsPerPage
   const currentStudents = filteredStudents.slice(
@@ -272,12 +287,13 @@ const ManageStudents = () => {
           <SearchIcon />
         </SearchWrapper>
         <ActionButton onClick={handleExport}>Export</ActionButton>
-        <ActionButton
+        <ActionButtonFilter
           ref={filterButtonRef}
           onClick={() => setIsFilterModalOpen(true)}
+          isFilterApplied={isFilterApplied}
         >
           Filter
-        </ActionButton>{" "}
+        </ActionButtonFilter>
         <ActionButton onClick={handlePrint}>Print</ActionButton>
         <Timestamp>{currentDateTime}</Timestamp>
       </Header>
@@ -359,6 +375,7 @@ const ManageStudents = () => {
         onRequestClose={() => setIsFilterModalOpen(false)}
         applyFilter={applyFilter}
         buttonRef={filterButtonRef}
+        isFilterApplied={isFilterApplied}
       />
     </Container>
   )
