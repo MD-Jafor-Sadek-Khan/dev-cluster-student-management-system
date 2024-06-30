@@ -115,22 +115,17 @@ const Login = () => {
           />
           <Input
             type="password"
-            placeholder="Password"
+            placeholder="Password   (Needs to be atleast 6 Charecters)"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
           />
           {isSignup && (
-            <>
-              <Input
-                type="password"
-                placeholder="Re-type Password"
-                value={confirmPassword}
-                onChange={(e) => setConfirmPassword(e.target.value)}
-              />
-              <p style={{ color: "#bbb", marginBottom: "5px" }}>
-                Password needs to be of atleast 6 letters
-              </p>
-            </>
+            <Input
+              type="password"
+              placeholder="Re-type Password"
+              value={confirmPassword}
+              onChange={(e) => setConfirmPassword(e.target.value)}
+            />
           )}
           <Button type="submit">{isSignup ? "Sign Up" : "Login"}</Button>
           <Separator>or</Separator>
