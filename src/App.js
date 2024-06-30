@@ -10,7 +10,7 @@ import { Toaster } from 'react-hot-toast';
 const App = () => {
   return (
     <Router>
-      <div className="flex h-screen">
+      <div className="flex h-screen bg-[#FFFCFB]">
         <SidePanel />
         <div className="flex flex-col flex-grow">
           <Navbar />
