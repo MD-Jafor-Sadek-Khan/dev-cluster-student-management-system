@@ -85,6 +85,8 @@ const EditStudentModal = ({
                 <option value="VIII">VIII</option>
                 <option value="IX">IX</option>
                 <option value="X">X</option>
+                <option value="XI">XI</option>
+                <option value="XII">XII</option>
               </select>
             </label>
             <label className="flex-1 flex flex-col text-[14px] text-[#333]">
@@ -100,6 +102,8 @@ const EditStudentModal = ({
                 <option value="A">A</option>
                 <option value="B">B</option>
                 <option value="C">C</option>
+                <option value="D">D</option>
+                <option value="E">E</option>
               </select>
             </label>
             <label className="flex-1 flex flex-col text-[14px] text-[#333]">
