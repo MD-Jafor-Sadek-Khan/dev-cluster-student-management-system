@@ -177,6 +177,8 @@ const EditStudentModal = ({
                 placeholder="Pincode"
                 value={selectedStudent.pincode}
                 onChange={handleEditChange}
+                maxLength={6}
+                minLength={4}
                 required
                 className="mt-[5px] p-3 border border-[#ddd] rounded-[6px] text-[16px] transition-colors duration-300 focus:border-[#f33823] outline-none"
               />
