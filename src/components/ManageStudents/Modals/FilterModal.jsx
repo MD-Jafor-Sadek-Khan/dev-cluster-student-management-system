@@ -31,7 +31,9 @@ const FilterModal = ({ isOpen, onRequestClose, applyFilter, buttonRef }) => {
   }
 
   const handleApply = () => {
-    applyFilter(filters)
+    const { class: classInput, ...restFilters } = filters
+    const romanClass = numberToRoman(classInput)
+    applyFilter({ class: romanClass, ...restFilters })
     onRequestClose()
   }
 
@@ -90,8 +92,25 @@ const FilterModal = ({ isOpen, onRequestClose, applyFilter, buttonRef }) => {
     document.body
   )
 }
-
 export default FilterModal
+
+const numberToRoman = (num) => {
+  const romanNumerals = {
+    1: "I",
+    2: "II",
+    3: "III",
+    4: "IV",
+    5: "V",
+    6: "VI",
+    7: "VII",
+    8: "VIII",
+    9: "IX",
+    10: "X",
+    11: "XI",
+    12: "XII",
+  }
+  return romanNumerals[num] || ""
+}
 
 const StyledModal = styled.div`
   position: absolute;
