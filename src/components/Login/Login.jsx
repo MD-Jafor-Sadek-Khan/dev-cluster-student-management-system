@@ -21,6 +21,32 @@ const Login = () => {
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
   const [confirmPassword, setConfirmPassword] = useState("")
+  const [passwordError, setPasswordError] = useState("")
+
+  const validatePassword = (password) => {
+    const minLength = 6
+    const hasNumber = /\d/
+    const hasUpperCase = /[A-Z]/
+    const hasLowerCase = /[a-z]/
+    const hasSpecialChar = /[!@#$%^&*(),.?":{}|<>]/
+
+    if (password.length < minLength) {
+      return "Password must be at least 6 characters long."
+    }
+    if (!hasNumber.test(password)) {
+      return "Password must contain at least one number."
+    }
+    if (!hasUpperCase.test(password)) {
+      return "Password must contain at least one uppercase letter."
+    }
+    if (!hasLowerCase.test(password)) {
+      return "Password must contain at least one lowercase letter."
+    }
+    if (!hasSpecialChar.test(password)) {
+      return "Password must contain at least one special character."
+    }
+    return null
+  }
 
   const handleGoogleLogin = async () => {
     try {
@@ -58,6 +84,11 @@ const Login = () => {
 
   const handleSignup = async (event) => {
     event.preventDefault()
+    const passwordError = validatePassword(password)
+    if (passwordError) {
+      toast.error(passwordError)
+      return
+    }
     if (password !== confirmPassword) {
       toast.error("Passwords do not match")
       return
@@ -91,6 +122,14 @@ const Login = () => {
     setConfirmPassword("")
   }
 
+  const handlePasswordChange = (e) => {
+    const value = e.target.value
+    setPassword(value)
+    if (isSignup) {
+      setPasswordError(validatePassword(value))
+    }
+  }
+
   return (
     <Wrapper>
       <LoginContainer>
@@ -114,10 +153,11 @@ const Login = () => {
           />
           <Input
             type="password"
-            placeholder="Password   (Needs to be atleast 6 Charecters)"
+            placeholder="Password"
             value={password}
-            onChange={(e) => setPassword(e.target.value)}
+            onChange={handlePasswordChange}
           />
+          {passwordError && <ErrorText>{passwordError}</ErrorText>}
           {isSignup && (
             <Input
               type="password"
@@ -261,5 +301,11 @@ const ToggleText = styled.p`
   &:hover {
     text-decoration: underline;
   }
+`
+
+const ErrorText = styled.p`
+  color: red;
+  font-size: 14px;
+  margin-bottom: 10px;
 `
 // original
