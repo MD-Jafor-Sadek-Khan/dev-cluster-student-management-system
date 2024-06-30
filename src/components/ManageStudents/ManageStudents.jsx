@@ -106,17 +106,19 @@ const ManageStudents = () => {
   }
 
   const filteredStudents = students.filter((student) => {
-    if (filters.viewAll) return true
-
     const fullName =
       `${student.firstName} ${student.middleName} ${student.lastName}`.toLowerCase()
     const searchParts = search.toLowerCase().split(" ")
     const matchesSearch = searchParts.every((part) => fullName.includes(part))
+    
+    if (filters.viewAll) return matchesSearch
+
     const matchesFilters =
       (filters.class === "" || student.class === filters.class) &&
       (filters.division === "" || student.division === filters.division) &&
       (filters.rollNumber === "" ||
         student.rollNumber.toString().includes(filters.rollNumber))
+
     return matchesSearch && matchesFilters
   })
   const handleExport = () => {
@@ -219,7 +221,7 @@ const ManageStudents = () => {
   const currentStudents = filteredStudents.slice(
     indexOfFirstStudent,
     indexOfLastStudent
-  )
+  );
 
   const totalPages = Math.ceil(filteredStudents.length / studentsPerPage)
 
@@ -342,3 +344,4 @@ const ManageStudents = () => {
 }
 
 export default ManageStudents
+// original
