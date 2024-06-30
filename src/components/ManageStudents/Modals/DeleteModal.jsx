@@ -1,7 +1,6 @@
-import React from "react"
-import styled from "styled-components"
-import Modal from "react-modal"
-import { FaTimes } from "react-icons/fa"
+import React from "react";
+import Modal from "react-modal";
+import { FaTimes } from "react-icons/fa";
 
 const DeleteStudentModal = ({ isOpen, onRequestClose, confirmDelete }) => {
   return (
@@ -11,24 +10,39 @@ const DeleteStudentModal = ({ isOpen, onRequestClose, confirmDelete }) => {
       style={ModalStyle}
       contentLabel="Delete Confirmation"
     >
-      <ModalHeader>
-        <Title>Delete Confirmation</Title>
-        <CloseButton onClick={onRequestClose}>
+      <div className="flex justify-between items-center">
+        <h2 className="m-0 text-[22px] text-[#ff3b3f]">Delete Confirmation</h2>
+        <button
+          className="bg-none border-none text-[24px] cursor-pointer text-[#e63946] transition-colors duration-300 hover:text-[#d00000]"
+          onClick={onRequestClose}
+        >
           <FaTimes />
-        </CloseButton>
-      </ModalHeader>
-      <ModalContent>
-        <Message>Are you sure you want to delete this item?</Message>
-        <ButtonWrapper>
-          <DeleteButton onClick={confirmDelete}>Delete</DeleteButton>
-          <CancelButton onClick={onRequestClose}>Cancel</CancelButton>
-        </ButtonWrapper>
-      </ModalContent>
+        </button>
+      </div>
+      <div className="mt-[25px]">
+        <p className="text-center text-[18px] text-[#333] my-[6rem]">
+          Are you sure you want to delete this item?
+        </p>
+        <div className="flex justify-between gap-[15px]">
+          <button
+            className="flex-1 py-[15px] px-[20px] text-white bg-[#f33823] rounded-[6px] text-[16px] cursor-pointer transition-colors duration-300 hover:bg-[#e22e31]"
+            onClick={confirmDelete}
+          >
+            Delete
+          </button>
+          <button
+            className="flex-1 py-[15px] px-[20px] text-[#333] bg-[#ddd] rounded-[6px] text-[16px] cursor-pointer transition-colors duration-300 hover:bg-[#ccc]"
+            onClick={onRequestClose}
+          >
+            Cancel
+          </button>
+        </div>
+      </div>
     </Modal>
-  )
-}
+  );
+};
 
-export default DeleteStudentModal
+export default DeleteStudentModal;
 
 const ModalStyle = {
   content: {
@@ -44,80 +58,6 @@ const ModalStyle = {
     boxShadow: "0 0 20px rgba(0, 0, 0, 0.2)",
     backgroundColor: "#fff",
   },
-}
+};
 
-const ModalHeader = styled.div`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-`
-
-const Title = styled.h2`
-  margin: 0;
-  font-size: 22px;
-  color: #ff3b3f;
-`
-
-const CloseButton = styled.button`
-  background: none;
-  border: none;
-  font-size: 24px;
-  cursor: pointer;
-  color: #e63946;
-  transition: color 0.3s ease;
-
-  &:hover {
-    color: #d00000;
-  }
-
-  @media (max-width: 480px) {
-    font-size: 20px;
-  }
-`
-const ModalContent = styled.div`
-  margin-top: 25px;
-`
-
-const Message = styled.p`
-  font-size: 18px;
-  color: #333;
-  text-align: center;
-  margin: 6rem 0;
-`
-
-const ButtonWrapper = styled.div`
-  display: flex;
-  justify-content: space-between;
-  gap: 15px;
-`
-
-const ModalButton = styled.button`
-  padding: 15px 20px;
-  color: #fff;
-  border: none;
-  border-radius: 6px;
-  cursor: pointer;
-  font-size: 16px;
-  transition: background-color 0.3s;
-  flex: 1;
-  text-align: center;
-`
-
-const DeleteButton = styled(ModalButton)`
-  background-color: #f33823;
-
-  &:hover {
-    background-color: #e22e31;
-  }
-`
-
-const CancelButton = styled(ModalButton)`
-  background-color: #ddd;
-  color: #333;
-
-  &:hover {
-    background-color: #ccc;
-  }
-`
-
-Modal.setAppElement("#root")
+Modal.setAppElement("#root");

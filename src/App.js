@@ -5,46 +5,27 @@ import SidePanel from './components/SidePanel';
 import AddStudent from './components/AddStudent';
 import ManageStudents from './components/ManageStudents/ManageStudents';
 import Login from './components/Login/Login';
-import GlobalStyle from './styles/GlobalStyle';
-import styled from 'styled-components';
 import { Toaster } from 'react-hot-toast';
 
 const App = () => {
   return (
     <Router>
-      <GlobalStyle />
-      <AppContainer>
+      <div className="flex h-screen">
         <SidePanel />
-        <MainContent>
+        <div className="flex flex-col flex-grow">
           <Navbar />
-          <ContentArea>
+          <div className="p-5 flex-grow">
             <Routes>
               <Route path="/add-student" element={<AddStudent />} />
               <Route path="/manage-students" element={<ManageStudents />} />
               <Route path="/login" element={<Login />} />
             </Routes>
-          </ContentArea>
-        </MainContent>
-      </AppContainer>
+          </div>
+        </div>
+      </div>
       <Toaster />
     </Router>
   );
 };
 
 export default App;
-
-const AppContainer = styled.div`
-  display: flex;
-  height: 100vh;
-`;
-
-const MainContent = styled.div`
-  display: flex;
-  flex-direction: column;
-  flex-grow: 1;
-`;
-
-const ContentArea = styled.div`
-  padding: 20px;
-  flex-grow: 1;
-`;
