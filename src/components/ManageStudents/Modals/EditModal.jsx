@@ -75,9 +75,16 @@ const EditStudentModal = ({
                 className="mt-[5px] p-3 border border-[#ddd] rounded-[6px] text-[16px] transition-colors duration-300 focus:border-[#f33823] outline-none"
               >
                 <option value="">Select Class</option>
-                <option value="1">Class 1</option>
-                <option value="2">Class 2</option>
-                <option value="3">Class 3</option>
+                <option value="I">I</option>
+                <option value="II">II</option>
+                <option value="III">III</option>
+                <option value="IV">IV</option>
+                <option value="V">V</option>
+                <option value="VI">VI</option>
+                <option value="VII">VII</option>
+                <option value="VIII">VIII</option>
+                <option value="IX">IX</option>
+                <option value="X">X</option>
               </select>
             </label>
             <label className="flex-1 flex flex-col text-[14px] text-[#333]">
@@ -90,9 +97,9 @@ const EditStudentModal = ({
                 className="mt-[5px] p-3 border border-[#ddd] rounded-[6px] text-[16px] transition-colors duration-300 focus:border-[#f33823] outline-none"
               >
                 <option value="">Select Division</option>
-                <option value="A">Division A</option>
-                <option value="B">Division B</option>
-                <option value="C">Division C</option>
+                <option value="A">A</option>
+                <option value="B">B</option>
+                <option value="C">C</option>
               </select>
             </label>
             <label className="flex-1 flex flex-col text-[14px] text-[#333]">

@@ -1,7 +1,15 @@
 import React, { useEffect, useRef, useState } from "react"
 import { AiOutlineEye, AiOutlineEdit, AiOutlineDelete } from "react-icons/ai"
 import { db } from "../../firebase"
-import { collection, getDocs, deleteDoc, doc, setDoc } from "firebase/firestore"
+import {
+  collection,
+  getDocs,
+  deleteDoc,
+  doc,
+  setDoc,
+  query,
+  where,
+} from "firebase/firestore"
 import { saveAs } from "file-saver"
 import ViewStudentModal from "./Modals/ViewModal"
 import EditStudentModal from "./Modals/EditModal"
@@ -22,6 +30,7 @@ import {
   Timestamp,
   Title,
 } from "./ManageStudents.styled"
+import toast from "react-hot-toast"
 
 const ManageStudents = () => {
   const [students, setStudents] = useState([])
@@ -43,6 +52,7 @@ const ManageStudents = () => {
   })
 
   const filterButtonRef = useRef(null)
+
   useEffect(() => {
     const auth = getAuth()
     const unsubscribe = onAuthStateChanged(auth, (user) => {
@@ -60,8 +70,11 @@ const ManageStudents = () => {
     if (user) {
       const fetchStudents = async () => {
         try {
-          const studentCollection = collection(db, "students")
-          const studentSnapshot = await getDocs(studentCollection)
+          const q = query(
+            collection(db, "students"),
+            where("userId", "==", user.uid)
+          )
+          const studentSnapshot = await getDocs(q)
           const studentList = studentSnapshot.docs.map((doc) => ({
             id: doc.id,
             ...doc.data(),
@@ -87,6 +100,7 @@ const ManageStudents = () => {
       setStudents(students.filter((student) => student.id !== deleteStudentId))
       setIsDeleteModalOpen(false)
       setDeleteStudentId(null)
+      toast.success("Deleted Successfully")
     } catch (error) {
       console.error("Error deleting student: ", error.message)
     }
@@ -110,7 +124,7 @@ const ManageStudents = () => {
       `${student.firstName} ${student.middleName} ${student.lastName}`.toLowerCase()
     const searchParts = search.toLowerCase().split(" ")
     const matchesSearch = searchParts.every((part) => fullName.includes(part))
-    
+
     if (filters.viewAll) return matchesSearch
 
     const matchesFilters =
@@ -121,6 +135,7 @@ const ManageStudents = () => {
 
     return matchesSearch && matchesFilters
   })
+
   const handleExport = () => {
     const csvContent = [
       [
@@ -155,6 +170,7 @@ const ManageStudents = () => {
 
     const blob = new Blob([csvContent], { type: "text/csv;charset=utf-8;" })
     saveAs(blob, "students.csv")
+    toast.success("Data Downloaded Successfully")
   }
 
   const handlePrint = () => {
@@ -198,6 +214,7 @@ const ManageStudents = () => {
         )
       )
       closeEditModal()
+      toast.success("Edited Successfully")
     } catch (error) {
       console.error("Error saving student: ", error.message)
     }
@@ -221,7 +238,7 @@ const ManageStudents = () => {
   const currentStudents = filteredStudents.slice(
     indexOfFirstStudent,
     indexOfLastStudent
-  );
+  )
 
   const totalPages = Math.ceil(filteredStudents.length / studentsPerPage)
 
@@ -275,7 +292,9 @@ const ManageStudents = () => {
           {currentStudents.map((student) => (
             <tr key={student.id}>
               <td>{`${student.firstName} ${student.middleName} ${student.lastName}`}</td>
-              <td>{student.class}</td>
+              <td>
+                {student.class}-{student.division}
+              </td>
               <td>{student.rollNumber}</td>
               <td>
                 <IconWrapper onClick={() => openViewModal(student)}>
@@ -344,4 +363,3 @@ const ManageStudents = () => {
 }
 
 export default ManageStudents
-// original

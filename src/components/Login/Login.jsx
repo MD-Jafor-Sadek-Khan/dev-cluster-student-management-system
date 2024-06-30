@@ -115,7 +115,7 @@ const Login = () => {
           />
           <Input
             type="password"
-            placeholder="Password"
+            placeholder="Password   (Needs to be atleast 6 Charecters)"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
           />
