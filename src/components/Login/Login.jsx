@@ -78,7 +78,11 @@ const Login = () => {
       toast.success("Login successful!")
     } catch (error) {
       console.error("Email login error:", error)
-      toast.error("Email login failed.")
+      if (error.code === "auth/invalid-credential") {
+        toast.error("Wrong Email or Password.")
+      } else {
+        toast.error("Email login failed.")
+      }
     }
   }
 

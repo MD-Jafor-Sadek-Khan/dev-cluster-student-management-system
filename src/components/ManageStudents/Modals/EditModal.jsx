@@ -1,6 +1,6 @@
-import React from "react";
-import Modal from "react-modal";
-import { FaTimes } from "react-icons/fa";
+import React from "react"
+import Modal from "react-modal"
+import { FaTimes } from "react-icons/fa"
 
 const EditStudentModal = ({
   isEditModalOpen,
@@ -114,6 +114,7 @@ const EditStudentModal = ({
                 placeholder="Enter Roll Number"
                 value={selectedStudent.rollNumber}
                 onChange={handleEditChange}
+                maxLength={2}
                 required
                 className="mt-[5px] p-3 border border-[#ddd] rounded-[6px] text-[16px] transition-colors duration-300 focus:border-[#f33823] outline-none"
               />
@@ -176,6 +177,8 @@ const EditStudentModal = ({
                 placeholder="Pincode"
                 value={selectedStudent.pincode}
                 onChange={handleEditChange}
+                maxLength={6}
+                minLength={4}
                 required
                 className="mt-[5px] p-3 border border-[#ddd] rounded-[6px] text-[16px] transition-colors duration-300 focus:border-[#f33823] outline-none"
               />
@@ -190,10 +193,10 @@ const EditStudentModal = ({
         </form>
       )}
     </Modal>
-  );
-};
+  )
+}
 
-export default EditStudentModal;
+export default EditStudentModal
 
 const ModalStyle = {
   content: {
@@ -209,6 +212,6 @@ const ModalStyle = {
     boxShadow: "0 0 20px rgba(0, 0, 0, 0.2)",
     backgroundColor: "#fff",
   },
-};
+}
 
-Modal.setAppElement("#root");
+Modal.setAppElement("#root")
