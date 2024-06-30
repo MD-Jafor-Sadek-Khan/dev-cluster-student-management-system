@@ -38,10 +38,55 @@ const AddStudent = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault()
+    
     if (!userId) {
-      console.error("User not logged in")
+      toast.error("User not logged in")
       return
     }
+
+    // Validation logic
+    const { firstName, lastName, class: studentClass, division, rollNumber, addressLine1, city, pincode } = student
+
+    if (!firstName || !lastName || !studentClass || !division || !rollNumber || !addressLine1 || !city || !pincode) {
+      toast.error("Please fill in all required fields")
+      return
+    }
+
+    if (!/^[A-Za-z]+$/.test(firstName)) {
+      toast.error("First Name should contain only letters")
+      return
+    }
+
+    if (student.middleName && !/^[A-Za-z]+$/.test(student.middleName)) {
+      toast.error("Middle Name should contain only letters")
+      return
+    }
+
+    if (!/^[A-Za-z]+$/.test(lastName)) {
+      toast.error("Last Name should contain only letters")
+      return
+    }
+
+    if (!isValidRomanNumeral(studentClass)) {
+      toast.error("Class should be a valid Roman numeral between I and XII")
+      return
+    }
+
+    if (!/^[A-E]$/.test(division)) {
+      toast.error("Division should be between A and E")
+      return
+    }
+
+    if (!/^\d{2}$/.test(rollNumber)) {
+      toast.error("Roll Number should be a 2-digit number")
+      return
+    }
+
+    if (!/^\d{4,6}$/.test(pincode)) {
+      toast.error("Pincode should be between 4 to 6 digits")
+      return
+    }
+
     try {
       const studentWithUser = { ...student, userId }
       const docRef = await addDoc(collection(db, "students"), studentWithUser)
@@ -130,6 +175,8 @@ const AddStudent = () => {
                 <option value="VIII">VIII</option>
                 <option value="IX">IX</option>
                 <option value="X">X</option>
+                <option value="XI">XI</option>
+                <option value="XII">XII</option>
               </Select>
               <SelectPlaceholder isSelected={student.class !== ""}>
                 Select Class
@@ -147,6 +194,8 @@ const AddStudent = () => {
                 <option value="A">A</option>
                 <option value="B">B</option>
                 <option value="C">C</option>
+                <option value="D">D</option>
+                <option value="E">E</option>
               </Select>
               <SelectPlaceholder isSelected={student.division !== ""}>
                 Select Division
@@ -212,6 +261,11 @@ const AddStudent = () => {
 }
 
 export default AddStudent
+
+const isValidRomanNumeral = (str) => {
+  const romanNumeralRegex = /^(I|II|III|IV|V|VI|VII|VIII|IX|X|XI|XII)$/
+  return romanNumeralRegex.test(str)
+}
 
 const Container = styled.div`
   background-color: #fffcfb;
