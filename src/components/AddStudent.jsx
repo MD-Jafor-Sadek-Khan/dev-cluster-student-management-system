@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react"
 import styled from "styled-components"
 import { db, auth } from "../firebase" // Ensure you import auth from your firebase config
 import { collection, addDoc, query, where, getDocs } from "firebase/firestore"
+import toast from "react-hot-toast"
 
 const AddStudent = () => {
   const [student, setStudent] = useState({
@@ -20,7 +21,7 @@ const AddStudent = () => {
   const [userId, setUserId] = useState(null)
 
   useEffect(() => {
-    const unsubscribe = auth.onAuthStateChanged(user => {
+    const unsubscribe = auth.onAuthStateChanged((user) => {
       if (user) {
         setUserId(user.uid)
       } else {
@@ -58,8 +59,9 @@ const AddStudent = () => {
         city: "",
         pincode: "",
       })
+      toast.success("Student Added Successfully")
     } catch (e) {
-      console.error("Error adding document: ", e)
+      toast.error("Error adding document: ", e)
     }
   }
 
@@ -118,9 +120,16 @@ const AddStudent = () => {
                 required
               >
                 <option value="" disabled></option>
-                <option value="1">Class 1</option>
-                <option value="2">Class 2</option>
-                <option value="3">Class 3</option>
+                <option value="I">I</option>
+                <option value="II">II</option>
+                <option value="III">III</option>
+                <option value="IV">IV</option>
+                <option value="V">V</option>
+                <option value="VI">VI</option>
+                <option value="VII">VII</option>
+                <option value="VIII">VIII</option>
+                <option value="IX">IX</option>
+                <option value="X">X</option>
               </Select>
               <SelectPlaceholder isSelected={student.class !== ""}>
                 Select Class
@@ -135,9 +144,9 @@ const AddStudent = () => {
                 required
               >
                 <option value="" disabled></option>
-                <option value="A">Division A</option>
-                <option value="B">Division B</option>
-                <option value="C">Division C</option>
+                <option value="A">A</option>
+                <option value="B">B</option>
+                <option value="C">C</option>
               </Select>
               <SelectPlaceholder isSelected={student.division !== ""}>
                 Select Division

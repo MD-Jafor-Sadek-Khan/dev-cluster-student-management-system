@@ -29,6 +29,8 @@ const SidePanel = () => {
     try {
       await signOut(auth)
       dispatch(clearUser())
+      toast.success("Loggedout Successfully")
+
       navigate("/login")
     } catch (error) {
       console.error("Error signing out:", error)
