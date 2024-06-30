@@ -188,3 +188,4 @@ const DetailValue = styled.td`
     font-size: 14px;
   }
 `
+// original

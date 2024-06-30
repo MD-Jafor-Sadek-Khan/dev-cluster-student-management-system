@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react"
+import React, { useEffect, useRef, useState } from "react"
 import { AiOutlineEye, AiOutlineEdit, AiOutlineDelete } from "react-icons/ai"
 import { db } from "../../firebase"
 import { collection, getDocs, deleteDoc, doc, setDoc } from "firebase/firestore"
@@ -6,6 +6,7 @@ import { saveAs } from "file-saver"
 import ViewStudentModal from "./Modals/ViewModal"
 import EditStudentModal from "./Modals/EditModal"
 import DeleteStudentModal from "./Modals/DeleteModal"
+import FilterModal from "./Modals/FilterModal"
 import { getAuth, onAuthStateChanged } from "firebase/auth"
 import {
   ActionButton,
@@ -33,7 +34,15 @@ const ManageStudents = () => {
   const [currentPage, setCurrentPage] = useState(1)
   const [studentsPerPage] = useState(5)
   const [user, setUser] = useState(null)
+  const [isFilterModalOpen, setIsFilterModalOpen] = useState(false)
+  const [filters, setFilters] = useState({
+    class: "",
+    division: "",
+    rollNumber: "",
+    viewAll: true,
+  })
 
+  const filterButtonRef = useRef(null)
   useEffect(() => {
     const auth = getAuth()
     const unsubscribe = onAuthStateChanged(auth, (user) => {
@@ -92,13 +101,24 @@ const ManageStudents = () => {
     setSearch(e.target.value)
   }
 
+  const applyFilter = (filters) => {
+    setFilters(filters)
+  }
+
   const filteredStudents = students.filter((student) => {
+    if (filters.viewAll) return true
+
     const fullName =
       `${student.firstName} ${student.middleName} ${student.lastName}`.toLowerCase()
     const searchParts = search.toLowerCase().split(" ")
-    return searchParts.every((part) => fullName.includes(part))
+    const matchesSearch = searchParts.every((part) => fullName.includes(part))
+    const matchesFilters =
+      (filters.class === "" || student.class === filters.class) &&
+      (filters.division === "" || student.division === filters.division) &&
+      (filters.rollNumber === "" ||
+        student.rollNumber.toString().includes(filters.rollNumber))
+    return matchesSearch && matchesFilters
   })
-
   const handleExport = () => {
     const csvContent = [
       [
@@ -231,9 +251,13 @@ const ManageStudents = () => {
           <SearchIcon />
         </SearchWrapper>
         <ActionButton onClick={handleExport}>Export</ActionButton>
-        <ActionButton>Filter</ActionButton>
+        <ActionButton
+          ref={filterButtonRef}
+          onClick={() => setIsFilterModalOpen(true)}
+        >
+          Filter
+        </ActionButton>{" "}
         <ActionButton onClick={handlePrint}>Print</ActionButton>
-
         <Timestamp>{currentDateTime}</Timestamp>
       </Header>
       <Table>
@@ -305,6 +329,13 @@ const ManageStudents = () => {
         confirmDelete={confirmDelete}
         onRequestClose={closeDeleteModal}
         key={selectedStudent?.rollNumber}
+      />
+
+      <FilterModal
+        isOpen={isFilterModalOpen}
+        onRequestClose={() => setIsFilterModalOpen(false)}
+        applyFilter={applyFilter}
+        buttonRef={filterButtonRef}
       />
     </Container>
   )

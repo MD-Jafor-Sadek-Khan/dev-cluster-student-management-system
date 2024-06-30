@@ -1,7 +1,6 @@
-import React from "react"
-import styled from "styled-components"
-import Modal from "react-modal"
-import { FaTimes } from "react-icons/fa"
+import React from "react";
+import Modal from "react-modal";
+import { FaTimes } from "react-icons/fa";
 
 const EditStudentModal = ({
   isEditModalOpen,
@@ -17,154 +16,173 @@ const EditStudentModal = ({
       style={ModalStyle}
       contentLabel="Edit Student Details"
     >
-      <ModalHeader>
-        <Title>Edit Student Details</Title>
-        <CloseButton onClick={closeEditModal}>
+      <div className="flex justify-between items-center">
+        <h2 className="m-0 text-[20px] text-[#ff3b3f]">Edit Student Details</h2>
+        <button
+          className="bg-none border-none text-[24px] cursor-pointer text-[#e63946] transition-colors duration-300 hover:text-[#d00000]"
+          onClick={closeEditModal}
+        >
           <FaTimes />
-        </CloseButton>
-      </ModalHeader>
+        </button>
+      </div>
       {selectedStudent && (
-        <ModalContent as="form" onSubmit={handleSave}>
-          <FormRow>
-            <Label>
+        <form onSubmit={handleSave} className="mt-[3.2rem]">
+          <div className="flex mb-5 gap-[15px]">
+            <label className="flex-1 flex flex-col text-[14px] text-[#333]">
               First Name
-              <Input
+              <input
                 type="text"
                 name="firstName"
                 placeholder="First Name"
                 value={selectedStudent.firstName}
                 onChange={handleEditChange}
                 required
+                className="mt-[5px] p-3 border border-[#ddd] rounded-[6px] text-[16px] transition-colors duration-300 focus:border-[#f33823] outline-none"
               />
-            </Label>
-            <Label>
+            </label>
+            <label className="flex-1 flex flex-col text-[14px] text-[#333]">
               Middle Name
-              <Input
+              <input
                 type="text"
                 name="middleName"
                 placeholder="Middle Name"
                 value={selectedStudent.middleName}
                 onChange={handleEditChange}
+                className="mt-[5px] p-3 border border-[#ddd] rounded-[6px] text-[16px] transition-colors duration-300 focus:border-[#f33823] outline-none"
               />
-            </Label>
-            <Label>
+            </label>
+            <label className="flex-1 flex flex-col text-[14px] text-[#333]">
               Last Name
-              <Input
+              <input
                 type="text"
                 name="lastName"
                 placeholder="Last Name"
                 value={selectedStudent.lastName}
                 onChange={handleEditChange}
                 required
+                className="mt-[5px] p-3 border border-[#ddd] rounded-[6px] text-[16px] transition-colors duration-300 focus:border-[#f33823] outline-none"
               />
-            </Label>
-          </FormRow>
-          <FormRow>
-            <Label>
+            </label>
+          </div>
+          <div className="flex mb-5 gap-[15px]">
+            <label className="flex-1 flex flex-col text-[14px] text-[#333]">
               Class
-              <Select
+              <select
                 name="class"
                 value={selectedStudent.class}
                 onChange={handleEditChange}
                 required
+                className="mt-[5px] p-3 border border-[#ddd] rounded-[6px] text-[16px] transition-colors duration-300 focus:border-[#f33823] outline-none"
               >
                 <option value="">Select Class</option>
                 <option value="1">Class 1</option>
                 <option value="2">Class 2</option>
                 <option value="3">Class 3</option>
-              </Select>
-            </Label>
-            <Label>
+              </select>
+            </label>
+            <label className="flex-1 flex flex-col text-[14px] text-[#333]">
               Division
-              <Select
+              <select
                 name="division"
                 value={selectedStudent.division}
                 onChange={handleEditChange}
                 required
+                className="mt-[5px] p-3 border border-[#ddd] rounded-[6px] text-[16px] transition-colors duration-300 focus:border-[#f33823] outline-none"
               >
                 <option value="">Select Division</option>
                 <option value="A">Division A</option>
                 <option value="B">Division B</option>
                 <option value="C">Division C</option>
-              </Select>
-            </Label>
-            <Label>
+              </select>
+            </label>
+            <label className="flex-1 flex flex-col text-[14px] text-[#333]">
               Roll Number
-              <Input
+              <input
                 type="text"
                 name="rollNumber"
                 placeholder="Enter Roll Number"
                 value={selectedStudent.rollNumber}
                 onChange={handleEditChange}
                 required
+                className="mt-[5px] p-3 border border-[#ddd] rounded-[6px] text-[16px] transition-colors duration-300 focus:border-[#f33823] outline-none"
               />
-            </Label>
-          </FormRow>
-          <FormRow>
-            <Label>
+            </label>
+          </div>
+          <div className="flex mb-5 gap-[15px]">
+            <label className="flex-1 flex flex-col text-[14px] text-[#333]">
               Address Line 1
-              <Input
+              <input
                 type="text"
                 name="addressLine1"
                 placeholder="Address Line 1"
                 value={selectedStudent.addressLine1}
                 onChange={handleEditChange}
                 required
+                className="mt-[5px] p-3 border border-[#ddd] rounded-[6px] text-[16px] transition-colors duration-300 focus:border-[#f33823] outline-none"
               />
-            </Label>
-            <Label>
+            </label>
+            <label className="flex-1 flex flex-col text-[14px] text-[#333]">
               Address Line 2
-              <Input
+              <input
                 type="text"
                 name="addressLine2"
                 placeholder="Address Line 2"
                 value={selectedStudent.addressLine2}
                 onChange={handleEditChange}
+                className="mt-[5px] p-3 border border-[#ddd] rounded-[6px] text-[16px] transition-colors duration-300 focus:border-[#f33823] outline-none"
               />
-            </Label>
-          </FormRow>
-          <FormRow>
-            <Label>
+            </label>
+          </div>
+          <div className="flex mb-5 gap-[15px]">
+            <label className="flex-1 flex flex-col text-[14px] text-[#333]">
               Landmark
-              <Input
+              <input
                 type="text"
                 name="landmark"
                 placeholder="Landmark"
                 value={selectedStudent.landmark}
                 onChange={handleEditChange}
+                className="mt-[5px] p-3 border border-[#ddd] rounded-[6px] text-[16px] transition-colors duration-300 focus:border-[#f33823] outline-none"
               />
-            </Label>
-            <Label>
+            </label>
+            <label className="flex-1 flex flex-col text-[14px] text-[#333]">
               City
-              <Input
+              <input
                 type="text"
                 name="city"
                 placeholder="City"
                 value={selectedStudent.city}
                 onChange={handleEditChange}
                 required
+                className="mt-[5px] p-3 border border-[#ddd] rounded-[6px] text-[16px] transition-colors duration-300 focus:border-[#f33823] outline-none"
               />
-            </Label>
-            <Label>
+            </label>
+            <label className="flex-1 flex flex-col text-[14px] text-[#333]">
               Pincode
-              <Input
+              <input
                 type="text"
                 name="pincode"
                 placeholder="Pincode"
                 value={selectedStudent.pincode}
                 onChange={handleEditChange}
                 required
+                className="mt-[5px] p-3 border border-[#ddd] rounded-[6px] text-[16px] transition-colors duration-300 focus:border-[#f33823] outline-none"
               />
-            </Label>
-          </FormRow>
-          <ModalButton type="submit">Save</ModalButton>
-        </ModalContent>
+            </label>
+          </div>
+          <button
+            type="submit"
+            className="py-4 bg-[#f33823] text-white rounded-[6px] w-full text-center mt-7 text-[18px] cursor-pointer transition-colors duration-300 hover:bg-[#e22e31]"
+          >
+            Save
+          </button>
+        </form>
       )}
     </Modal>
-  )
-}
+  );
+};
 
-export default EditStudentModal
+export default EditStudentModal;
 
 const ModalStyle = {
   content: {
@@ -175,103 +193,11 @@ const ModalStyle = {
     marginRight: "-50%",
     transform: "translate(-50%, -50%)",
     width: "60%",
-    padding: " 2.5rem 3rem",
+    padding: "2.5rem 3rem",
     borderRadius: "12px",
     boxShadow: "0 0 20px rgba(0, 0, 0, 0.2)",
     backgroundColor: "#fff",
   },
-}
+};
 
-const ModalHeader = styled.div`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-`
-
-const Title = styled.h2`
-  margin: 0;
-  font-size: 20px;
-  color: #ff3b3f;
-`
-
-const CloseButton = styled.button`
-  background: none;
-  border: none;
-  font-size: 24px;
-  cursor: pointer;
-  color: #e63946;
-  transition: color 0.3s ease;
-
-  &:hover {
-    color: #d00000;
-  }
-
-  @media (max-width: 480px) {
-    font-size: 20px;
-  }
-`
-
-const ModalContent = styled.div`
-  margin: 3.2rem 0 0 0;
-`
-
-const FormRow = styled.div`
-  display: flex;
-  margin-bottom: 20px;
-  gap: 15px;
-`
-
-const Label = styled.label`
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  font-size: 14px;
-  color: #333;
-`
-
-const Input = styled.input`
-  margin: 5px 0;
-  padding: 12px;
-  border: 1px solid #ddd;
-  border-radius: 6px;
-  font-size: 16px;
-  transition: border 0.3s;
-
-  &:focus {
-    border-color: #f33823;
-    outline: none;
-  }
-`
-
-const Select = styled.select`
-  margin: 5px 0;
-
-  padding: 12px;
-  border: 1px solid #ddd;
-  border-radius: 6px;
-  font-size: 16px;
-  transition: border 0.3s;
-
-  &:focus {
-    border-color: #f33823;
-    outline: none;
-  }
-`
-
-const ModalButton = styled.button`
-  padding: 16px 0;
-  background-color: #f33823;
-  color: #fff;
-  border: none;
-  border-radius: 6px;
-  cursor: pointer;
-  width: 100%;
-  text-align: center;
-  margin-top: 30px;
-  font-size: 18px;
-  transition: background-color 0.3s;
-
-  &:hover {
-    background-color: #e22e31;
-  }
-`
+Modal.setAppElement("#root");
