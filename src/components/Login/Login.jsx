@@ -35,7 +35,6 @@ const Login = () => {
       toast.success("Google login successful!")
     } catch (error) {
       console.error("Google login error:", error)
-      toast.error("Google login failed.")
     }
   }
 
