@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react"
 import styled from "styled-components"
-import { db, auth } from "../firebase" // Ensure you import auth from your firebase config
-import { collection, addDoc, query, where, getDocs } from "firebase/firestore"
+import { db, auth } from "../firebase" 
+import { collection, addDoc } from "firebase/firestore"
 import toast from "react-hot-toast"
 
 const AddStudent = () => {
