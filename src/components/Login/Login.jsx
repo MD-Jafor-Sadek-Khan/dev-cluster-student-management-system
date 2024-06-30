@@ -120,12 +120,17 @@ const Login = () => {
             onChange={(e) => setPassword(e.target.value)}
           />
           {isSignup && (
-            <Input
-              type="password"
-              placeholder="Re-type Password"
-              value={confirmPassword}
-              onChange={(e) => setConfirmPassword(e.target.value)}
-            />
+            <>
+              <Input
+                type="password"
+                placeholder="Re-type Password"
+                value={confirmPassword}
+                onChange={(e) => setConfirmPassword(e.target.value)}
+              />
+              <p style={{ color: "#bbb", marginBottom: "5px" }}>
+                Password needs to be of atleast 6 letters
+              </p>
+            </>
           )}
           <Button type="submit">{isSignup ? "Sign Up" : "Login"}</Button>
           <Separator>or</Separator>

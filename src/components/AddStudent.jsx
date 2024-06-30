@@ -1,7 +1,7 @@
-import React, { useState } from "react"
+import React, { useState, useEffect } from "react"
 import styled from "styled-components"
-import { db } from "../firebase"
-import { collection, addDoc } from "firebase/firestore"
+import { db, auth } from "../firebase" // Ensure you import auth from your firebase config
+import { collection, addDoc, query, where, getDocs } from "firebase/firestore"
 
 const AddStudent = () => {
   const [student, setStudent] = useState({
@@ -17,6 +17,18 @@ const AddStudent = () => {
     city: "",
     pincode: "",
   })
+  const [userId, setUserId] = useState(null)
+
+  useEffect(() => {
+    const unsubscribe = auth.onAuthStateChanged(user => {
+      if (user) {
+        setUserId(user.uid)
+      } else {
+        setUserId(null)
+      }
+    })
+    return () => unsubscribe()
+  }, [])
 
   const handleChange = (e) => {
     const { name, value } = e.target
@@ -25,8 +37,13 @@ const AddStudent = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault()
+    if (!userId) {
+      console.error("User not logged in")
+      return
+    }
     try {
-      const docRef = await addDoc(collection(db, "students"), student)
+      const studentWithUser = { ...student, userId }
+      const docRef = await addDoc(collection(db, "students"), studentWithUser)
       console.log("Document written with ID: ", docRef.id)
       setStudent({
         firstName: "",
@@ -360,4 +377,3 @@ const Button = styled.button`
     font-size: 12px;
   }
 `
-// original
